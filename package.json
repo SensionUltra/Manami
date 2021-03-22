@@ -1,0 +1,16 @@
+{
+  "name": "manami",
+  "version": "1.0.0",
+  "description": "MultiPurpose Bot Made By Awoken and Zac",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ascii-table": "0.0.9",
+    "discord.js": "^12.5.1",
+    "nodemon": "^2.0.7"
+  }
+}
