@@ -9,9 +9,21 @@ const fields = [
     {name: `Username`, value:`${target.username}`, inline: true}
 ]
 
-fields.push(
-    {name: `test`, value: `testing`}
-)
+if (target.id == 817653964161548289) {
+    fields.push(
+        {name: `Acknowledgements`, value: `The Manami Bot`}
+    )
+}
+if (target.id == 537117477721604096) {
+    fields.push(
+        {name: `Acknowledgements`, value: `Manami Bot Developer`}
+    )
+}
+if (target.id == 712170999222632469) {
+    fields.push(
+        {name: `Acknowledgements`, value: `Manami Bot Developer`}
+    )
+}
 
 const targetEmbed = new MessageEmbed()
 .setTitle(`${target.username}`)
