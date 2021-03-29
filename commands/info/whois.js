@@ -11,19 +11,16 @@ const fields = [
 
 switch (true) {
 case (target.id == 817653964161548289):
-    console.log(`the bot`)
     fields.push(
         {name: `Acknowledgements`, value: `The Manami Bot`}
     )
 break;
 case (target.id == 537117477721604096):
-    console.log(`zac`)
     fields.push(
         {name: `Acknowledgements`, value: `Manami Bot Developer`}
     )
     break;
     case (target.id == 712170999222632469):
-        console.log(`awoken`)
         fields.push(
             {name: `Acknowledgements`, value: `Manami Bot Developer`}
     )
