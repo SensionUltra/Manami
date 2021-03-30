@@ -8,10 +8,16 @@ const target = message.mentions.users.first() || message.author;
 const targetMember = message.mentions.members.first() || message.member;
 const joinDiscord = moment(target.createdAt).format('llll');
 const joinServer = moment(target.joinedAt).format('llll');
+if (target.bot == true) {
+    target.isbot = 'yes'
+} else {
+    target.isbot = 'no'
+}
 
 const fields = [
-    {name: `Created At`, value: `${joinDiscord}`, inline: true},
-    {name: `Joined At`, value: `${joinServer}`, inline: true},
+    {name: `Created At`, value: joinDiscord, inline: true},
+    {name: `Joined At`, value: joinServer, inline: true},
+    {name: `Bot`, value: target.isbot, inline: true},
     {name: `Roles`, value: targetMember.roles.cache.map(r => `${r}`).join(' | ')},
 ]
 
