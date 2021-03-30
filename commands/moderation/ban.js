@@ -12,15 +12,13 @@ module.exports = {
         
         if (!message.guild.me.hasPermission('BAN_MEMBERS')) return message.channel.send('i do not have permissions to ban members')
         
+        if (!args[0]) return message.channel.send('Specify the member to ban')
+        
+        if (!target) return message.channel.send('User is not a member/not found')
+        
         if (!target.bannable) return message.channel.send(`i can not ban ${target.user.username}, this is becuse either they have a role that is above mine or they are the owner of this server`)
         
         if(target.id == message.author.id) return message.channel.send('You can\'t ban yourself')
-
-        if(target.id == message.author.id) return message.channel.send('Cant ban yourself')
-
-        if (!args[0]) return message.channel.send('Specify the member to ban')
-
-        if (!target) return message.channel.send('User is not a member/not found')
 
         if (!reason) reason = "No reason given"
         
