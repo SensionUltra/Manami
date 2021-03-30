@@ -2,6 +2,7 @@ const { MessageEmbed } = require("discord.js");
 module.exports = {
 name: "whoisnt",
 description: "who isnt the target user",
+aliases: ['whoaint'],
 run: (client, message, args) => {
     const target = message.mentions.users.first() || message.author;
 

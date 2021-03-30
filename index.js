@@ -1,8 +1,13 @@
 const Discord = require("discord.js");
-const { token, prefix } = require("./config.json")
+const { token, prefix, mongooseString } = require("./config.json")
 const client = new Discord.Client({ disableMentions: "all" });
+const mongoose = require('mongoose')
 const Kitsu = require('kitsu.js')
 client.kitsu = new Kitsu();
+mongoose.connect(mongooseString, {
+  useUnifiedTopology: true,
+  useNewUrlParser: true
+}).then(console.log(`Connect to Mongo DB!`))
 
 client.commands = new Discord.Collection();
 client.aliases = new Discord.Collection();
@@ -11,7 +16,7 @@ client.on("ready", () => {
     type: "LISTENING",
   });
   console.log(`${client.user.username} is Online! ID: ${client.user.id}`);
-});
+}); 
 
 ["command"].forEach((handler) => {
   require(`./handlers/${handler}`)(client);

@@ -14,9 +14,27 @@ if (target.bot == true) {
     target.isbot = 'no'
 }
 
+
+let status;
+switch (target.presence.status) {
+    case "online":
+        status = "<:onlinestat:806751831719804955>";
+        break;
+    case "offline":
+        status = "<:offlinestat:806752213397143562>";
+        break;
+    case "idle":
+        status = "<:idlestat:806751406613594112>";
+        break;
+    case "dnd":
+        status = "<:dndstat:806752021780234271>";
+        break;
+}
+
 const fields = [
     {name: `Created At`, value: joinDiscord, inline: true},
     {name: `Joined At`, value: joinServer, inline: true},
+    {name: `Status`, value: status, inline: true},
     {name: `Bot`, value: target.isbot, inline: true},
     {name: `Roles`, value: targetMember.roles.cache.map(r => `${r}`).join(' | ')},
 ]
