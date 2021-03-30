@@ -1,13 +1,9 @@
 const Discord = require("discord.js");
 const { token, prefix, mongooseString } = require("./config.json")
-const client = new Discord.Client({ disableMentions: "all" });
+const client = new Discord.Client();
 const mongoose = require('mongoose')
 const Kitsu = require('kitsu.js')
 client.kitsu = new Kitsu();
-mongoose.connect(mongooseString, {
-  useUnifiedTopology: true,
-  useNewUrlParser: true
-}).then(console.log(`Connect to Mongo DB!`))
 
 client.commands = new Discord.Collection();
 client.aliases = new Discord.Collection();

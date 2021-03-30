@@ -5,7 +5,7 @@ module.exports = {
     description: "bans the pinged user",
     usage: "ban <user>",
     run: (client, message, args) => {
-        const target = message.mentions.members.first(); 
+        const target = message.mentions.members.first() || message.guild.members.cache.find(member => member.user.username.toLowerCase() === args.join(" ").toLowerCase()) || message.guild.members.cache.get(args[0]) || message.guild.members.cache.find(member => member.displayName.toLowerCase() === args.join(" ").toLowerCase()) || message.member
         let reason = args.slice(1).join(" "); 
         
         if (!message.member.hasPermission('BAN_MEMBERS')) return message.channel.send(`you do not have the required permissions to use this command ${message.author}`)
