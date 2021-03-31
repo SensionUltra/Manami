@@ -66,7 +66,7 @@ module.exports.takeCoins = async (guildId, userId, coinsPreNegative) => {
     })
 }
 
-module.exports.begCoins = async (guildId, userId, coins) => {
+module.exports.begCoins = async (guildId, userId) => {
     return await mongo().then(async (mongoose) => {
         try {
             console.log("Running FindOneAndUpdate()")
@@ -87,7 +87,7 @@ module.exports.begCoins = async (guildId, userId, coins) => {
                 })
                 coinsCache[`${guildId}-${userId}`] = result.coins
             
-                return result.coins
+                return randomNumber
             } finally {
     
                 mongoose.connection.close()
