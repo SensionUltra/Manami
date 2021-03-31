@@ -1,5 +1,5 @@
 const economy = require('../../economy')
-
+const { MessageEmbed } = require("discord.js");
 module.exports = {
 name: "balance",
 aliases: ["bal", "howmuchmoneyigot"],
@@ -13,6 +13,10 @@ run: async(client, message, args) => {
 
     const coins = await economy.getCoins(guildId, userId)
     
-    message.reply(`That user has ${coins} coins!`)
+    const balanceEmbed = new MessageEmbed()
+    .setTitle(`${target.username}'s balance`)
+    .setDescription(`${target.username} has ${coins} coins!`)
+
+    message.channel.send(balanceEmbed)
 }
 }
