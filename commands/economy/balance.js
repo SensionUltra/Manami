@@ -11,11 +11,13 @@ run: async(client, message, args) => {
     const guildId = message.guild.id
     const userId = target.id
 
+
     const coins = await economy.getCoins(guildId, userId)
     
     const balanceEmbed = new MessageEmbed()
     .setTitle(`${target.username}'s balance`)
     .setDescription(`${target.username} has ${coins} coins!`)
+    .setTimestamp()
 
     message.channel.send(balanceEmbed)
 }

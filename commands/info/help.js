@@ -18,6 +18,7 @@ module.exports = {
       let categories = [];
 
       readdirSync("./commands/").forEach((dir) => {
+        if (dir == 'owner') return
         const commands = readdirSync(`./commands/${dir}/`).filter((file) =>
           file.endsWith(".js")
         );
@@ -56,12 +57,14 @@ module.exports = {
         .setColor(roleColor);
       return message.channel.send(embed);
     } else {
-      const command =
+      let command =
         client.commands.get(args[0].toLowerCase()) ||
         client.commands.find(
           (c) => c.aliases && c.aliases.includes(args[0].toLowerCase())
         );
-
+        if (command?.owner) {
+          command = undefined
+        }
       if (!command) {
         const embed = new MessageEmbed()
           .setTitle(`Invalid command! Use \`${prefix}help\` for all of my commands!`)

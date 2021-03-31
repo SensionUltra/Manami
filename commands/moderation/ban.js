@@ -9,7 +9,7 @@ module.exports = {
         let reason = args.slice(1).join(" "); 
         
         if (!message.member.hasPermission('BAN_MEMBERS')) return message.channel.send(`you do not have the required permissions to use this command ${message.author}`)
-        
+        d
         if (!message.guild.me.hasPermission('BAN_MEMBERS')) return message.channel.send('i do not have permissions to ban members')
         
         if (!args[0]) return message.channel.send('Specify the member to ban')

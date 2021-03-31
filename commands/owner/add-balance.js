@@ -3,8 +3,9 @@ module.exports = {
 name: "give",
 aliases: ['addbal', 'addbalance'],
 description: "give mone",
+// owner: 'Only the owners of the bot can run this command',
+owner: false,
 run: async(client, message, args) => {
-    if ((message.author.id == 712170999222632469 || message.author.id == 537117477721604096) == false) return message.channel.send(`Only the owners of the bot can run this command`)
 
     const target = message.mentions.users.first()
 
