@@ -24,7 +24,7 @@ run: async(client, message, args) => {
 
     const newCoins = await economy.addCoins(guildId, userId, coins)
 
-    message.channel.send(`You have given <@${userId}> ${coins} coins(s). They now have ${newCoins} coins(s)!`)
+    message.channel.send(`You have given ${coins} coins(s) to <@${userId}>. They now have ${newCoins} coins(s)!`)
 
 },
 }

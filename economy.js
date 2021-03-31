@@ -36,6 +36,36 @@ module.exports.addCoins = async (guildId, userId, coins) => {
     })
 }
 
+module.exports.takeCoins = async (guildId, userId, coinsPreNegative) => {
+    return await mongo().then(async (mongoose) => {
+        try {
+            let coins = (- + coinsPreNegative)
+            console.log('Running FindOneAndUpdate()')
+
+            const result = await profileSchema.findOneAndUpdate({
+                guildId,
+                userId
+            }, {
+                guildId,
+                userId,
+                $inc: {
+                    coins
+                }
+            }, {
+                upsert: true,
+                new: true
+            })
+            
+            coinsCache[`${guildId}-${userId}`] = result.coins
+            
+            return result.coins
+        } finally {
+
+            mongoose.connection.close()
+        }
+    })
+}
+
 module.exports.getCoins = async (guildId, userId) => {
     const chachedValue = coinsCache[`${guildId}-${userId}`]
     if (chachedValue) {
