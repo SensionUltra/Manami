@@ -3,8 +3,7 @@ module.exports = {
 name: "give",
 aliases: ['addbal', 'addbalance'],
 description: "give mone",
-// owner: 'Only the owners of the bot can run this command',
-owner: false,
+owner: true,
 run: async(client, message, args) => {
 
     const target = message.mentions.users.first()
