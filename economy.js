@@ -125,9 +125,9 @@ module.exports.setCoins = async (guildId, userId, coins) => {
 }
 
 module.exports.getCoins = async (guildId, userId) => {
-    const chachedValue = coinsCache[`${guildId}-${userId}`]
-    if (chachedValue) {
-        return chachedValue
+    const cachedValue = coinsCache[`${guildId}-${userId}`]
+    if (cachedValue) {
+        return cachedValue
     }
     return await mongo().then(async mongoose => {
         try {
