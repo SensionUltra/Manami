@@ -1,10 +1,15 @@
 const Discord = require("discord.js");
 const { token, mongooseString } = require("./token.json")
 const config = require("./config.json")
-const client = new Discord.Client();
+const client = new Discord.Client({
+  messageCacheMaxSize: 1000,
+    messageCacheLifetime: 43200,
+  messageSweepInterval: 3600,
+  partials: ["MESSAGE", "CHANNEL", "REACTION"]});
 const mongoose = require('mongoose')
 const Kitsu = require('kitsu.js')
 client.kitsu = new Kitsu();
+const levels = require('./levels')
 
 client.commands = new Discord.Collection();
 client.aliases = new Discord.Collection();
@@ -47,5 +52,6 @@ client.on("message", async message => {
   
    
    })
+   levels(client)
 
 client.login(token);

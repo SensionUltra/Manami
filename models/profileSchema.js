@@ -9,7 +9,15 @@ const profileSchema = mongoose.Schema({
     userId: reqString,
     coins: {
         type: Number,
-        required: true 
+        default: 0
+    },
+    xp: {
+        type: Number,
+        defualt: 0
+    },
+    level: {
+        type: Number,
+        defualt: 1,
     }
 })
 
