@@ -1,11 +1,10 @@
 const economy = require('../../economy')
-
 module.exports = {
 name: "give",
 aliases: ['addbal', 'addbalance'],
 description: "give mone",
 run: async(client, message, args) => {
-    if ((message.author.id == 712170999222632469 || message.author.id == 537117477721604096) == false) return message.channel.send(`Only <@712170999222632469> and <@537117477721604096> can run this command`)
+    if ((message.author.id == 712170999222632469 || message.author.id == 537117477721604096) == false) return message.channel.send(`Only the owners of the bot can run this command`)
 
     const target = message.mentions.users.first()
 
@@ -25,7 +24,7 @@ run: async(client, message, args) => {
 
     const newCoins = await economy.addCoins(guildId, userId, coins)
 
-    message.reply(`You have given <@${userId}> ${coins} coins(s). They now have ${newCoins} coins(s)!`)
+    message.channel.send(`You have given <@${userId}> ${coins} coins(s). They now have ${newCoins} coins(s)!`)
 
 },
 }
