@@ -58,6 +58,64 @@ module.exports.takeCoins = async (guildId, userId, coinsPreNegative) => {
             
             coinsCache[`${guildId}-${userId}`] = result.coins
             
+            return result.coins 
+        } finally {
+
+            mongoose.connection.close()
+        }
+    })
+}
+
+module.exports.begCoins = async (guildId, userId, coins) => {
+    return await mongo().then(async (mongoose) => {
+        try {
+            console.log("Running FindOneAndUpdate()")
+
+            const randomNumber = Math.floor(Math.random() * 500) + 1 ;
+            const result = await profileSchema.findOneAndUpdate({
+                guildId,
+                userId,
+            }, {
+                guildId,
+                userId,
+                $inc: {
+                    coins: randomNumber
+                }
+                }, {
+                    upsert: true,
+                    new: true
+                })
+                coinsCache[`${guildId}-${userId}`] = result.coins
+            
+                return result.coins
+            } finally {
+    
+                mongoose.connection.close()
+            }
+        })
+    }
+
+module.exports.setCoins = async (guildId, userId, coins) => {
+    return await mongo().then(async (mongoose) => {
+        try {
+            console.log('Running FindOneAndUpdate()')
+
+            const result = await profileSchema.findOneAndUpdate({
+                guildId,
+                userId
+            }, {
+                guildId,
+                userId,
+                $set: {
+                    coins
+                }
+            }, {
+                upsert: true,
+                new: true
+            })
+            
+            coinsCache[`${guildId}-${userId}`] = result.coins
+            
             return result.coins
         } finally {
 
