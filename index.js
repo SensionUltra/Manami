@@ -36,11 +36,10 @@ client.on("message", async message => {
       let command = client.commands.get(cmd);
       // If none is found, try to find it by alias
       if (!command) command = client.commands.get(client.aliases.get(cmd));
-
       if (command?.owner && config.ownerIds.includes(message.author.id) == false) {
         if (typeof(command.owner) == "string") {
           return message.channel.send(command.owner)
-        }
+        } else return
       }
       // If a command is finally found, run the command
       if (command) 
