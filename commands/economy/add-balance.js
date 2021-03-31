@@ -5,11 +5,8 @@ name: "give",
 aliases: ['addbal', 'addbalance'],
 description: "give mone",
 run: async(client, message, args) => {
-    const author = message.author
-    if(author != "712170999222632469") {
-        message.channel.send(`Only <@712170999222632469> and <@537117477721604096> can run this command`)
-        return
-    }
+    if ((message.author.id == 712170999222632469 || message.author.id == 537117477721604096) == false) return message.channel.send(`Only <@712170999222632469> and <@537117477721604096> can run this command`)
+
     const target = message.mentions.users.first()
 
     if (!target) {
