@@ -7,6 +7,8 @@ module.exports.error = (title, errMessage, message) => {
     .setTitle(title)
     .setDescription(errMessage)
     .setColor('#ff0000')
+    .setTimestamp()
+    
     return message.channel.send(errorEmbed)
 }
 
@@ -15,6 +17,8 @@ module.exports.succes = (title, succesMessage, message) => {
     .setTitle(title)
     .setDescription(succesMessage)
     .setColor('#00ff00')
+    .setTimestamp()
+
     return message.channel.send(succesEmbed)
 }
 
@@ -23,5 +27,7 @@ module.exports.fieldListEmbed = (title, fields, message) => {
     .setTitle(title)
     .addFields(fields)
     .setColor('#00ff00')
+    .setTimestamp()
+
     return message.channel.send(fieldListEmbed)
 }
