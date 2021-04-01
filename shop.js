@@ -28,8 +28,6 @@ module.exports.buyItem = async (guildId, userId, item) => {
                 new: true
             })
             
-            coinsCache[`${guildId}-${userId}`] = result.coins
-            
             return result.coins
         } finally {
 
