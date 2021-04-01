@@ -19,8 +19,9 @@ run: async(client, message, args) => {
         } else {
             const items = JSON.parse(data); // parses the data from the readfile
             items.forEach( async(obj) => {
-                if (obj.name != itemArgs) return //  checks whether this is the right item to buy
-                if (obj.price > usersCoins) return embed.error('Not Enough Money', `you do not have enough money to buy this item, you would need ${obj.price} coins and you have ${usersCoins} coins!`, message) //  if the user dosnt have enough coins it will tell the user how many coins they need
+                const { price, name } = obj
+                if (name != itemArgs) return //  checks whether this is the right item to buy
+                if (price > usersCoins) return embed.error('Not Enough Money', `you do not have enough money to buy this item, you would need ${price} coins and you have ${usersCoins} coins!`, message) //  if the user dosnt have enough coins it will tell the user how many coins they need
                 
                 const item = obj // defines the object with a nicer name
                 const newCoins = await shop.buyItem(guildId, userId, item) // buys the item from the shop
