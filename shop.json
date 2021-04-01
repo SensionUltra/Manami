@@ -1,10 +1,27 @@
 [
     {
         "name": "carrot",
+        "description": "a nice sweet fresh carrot",
         "price": "4"
     },
     {
         "name": "avacado",
+        "description": "a nice avacado good for breakfast",
         "price": "6"
+    },
+    {
+        "name": "computer",
+        "description": "a nice good gaming computer with rbg lights",
+        "price": "1000"
+    },
+    {
+        "name": "[object Set]",
+        "description": "a nice object Set", 
+        "price": "100"
+    },
+    {
+        "name": "[object Object]",
+        "description": "a nice object Object",
+        "price": "100"
     }
 ]
