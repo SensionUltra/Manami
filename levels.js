@@ -4,7 +4,7 @@ module.exports = (client) => {
     client.on('message', message => {
         const { guild, member } = message
 
-        addXP(guild.id, member.id, 20, message)
+        // addXP(guild.id, member.id, 20, message)
     })
 }
 
