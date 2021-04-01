@@ -2,6 +2,7 @@ const { MessageEmbed } = require("discord.js");
 const fs = require('fs')
 const economy = require('../../economy');
 const shop = require('../../shop')
+const embed = require('../../embeds')
 module.exports = {
 name: "items",
 description: "see how many items you have",
@@ -11,16 +12,14 @@ run: async(client, message, args) => {
     const userId = target.id
     const items = await shop.getItems(guildId, userId)
 const itemsList = []
-    if (!items) return message.channel.send('you do not have any items')
+
+    if (!items.length) return embed.error('No Items', 'you do not have any items', message)
 items.forEach(obj => {
     if (itemsList.some(i=>i.name == obj.name)) return
     itemsList.push(
         {name: `${obj.name}`, value: `${obj.description}`}
     )
 });
-const itemsEmbed = new MessageEmbed()
-    .setTitle(`${target.username}`)
-    .addFields(itemsList)
-    message.channel.send(itemsEmbed)
+        embed.fieldListEmbed(target.username, itemsList, message)
 }
 }
