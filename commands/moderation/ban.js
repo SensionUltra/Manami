@@ -1,5 +1,5 @@
 const Discord = require('discord.js')
-
+const embed = require('../../embeds')
 module.exports = {
     name: "ban",
     description: "bans the pinged user",
@@ -8,26 +8,25 @@ module.exports = {
         const target = message.mentions.members.first() || message.guild.members.cache.find(member => member.user.username.toLowerCase() === args.join(" ").toLowerCase()) || message.guild.members.cache.get(args[0]) || message.guild.members.cache.find(member => member.displayName.toLowerCase() === args.join(" ").toLowerCase()) || message.member
         let reason = args.slice(1).join(" "); 
         
-        if (!message.member.hasPermission('BAN_MEMBERS')) return message.channel.send(`you do not have the required permissions to use this command ${message.author}`)
-        d
-        if (!message.guild.me.hasPermission('BAN_MEMBERS')) return message.channel.send('i do not have permissions to ban members')
+        if (!message.member.hasPermission('BAN_MEMBERS')) return embed.error('Missing Permissions', `you do not have the required permissions to use this command ${message.author}`, message)
         
-        if (!args[0]) return message.channel.send('Specify the member to ban')
+        if (!message.guild.me.hasPermission('BAN_MEMBERS')) return embed.error('Missing Permissions', 'i do not have permissions to ban members', message)
         
-        if (!target) return message.channel.send('User is not a member/not found')
+        if (!args[0]) return embed.error('Missing Arguments', 'Specify the member to ban', message)
         
-        if (!target.bannable) return message.channel.send(`i can not ban ${target.user.username}, this is becuse either they have a role that is above mine or they are the owner of this server`)
+        if (!target) return embed.error('Incorrect Mention', 'User is not a member/not found', message)
         
-        if(target.id == message.author.id) return message.channel.send('You can\'t ban yourself')
+        if (!target.bannable) return embed.error('Permissions Error', `i can not ban ${target.user.username}, this is becuse either they have a role that is above mine or they are the owner of this server`, message)
+        
+        if(target.id == message.author.id) return embed.error('User Error', 'You can\'t ban yourself', message)
 
         if (!reason) reason = "No reason given"
-        
-        const bannedEmbed = new Discord.MessageEmbed()
-        .setColor(`#ff0000`)
-        .setTitle(`${target.user.username}`)
-        .addField(`banned by`, `${message.author}`)
-        .addField(`reason`, `${reason}`)
-        message.channel.send(bannedEmbed)
+        const fields = [
+            {name: `Banned By`, value: `${message.author}`},
+            {name: `Reason`, value: `${reason}`},
+            {name: `Users Id`, value: `${target.id}`}
+        ]
+        embed.fieldListEmbed(`${target.user.username}`, fields, message, '#ff0000')
         target.ban({reason: `${reason}`});
     }
 }
