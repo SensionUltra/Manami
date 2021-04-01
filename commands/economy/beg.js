@@ -1,5 +1,4 @@
 const economy = require('../../economy');
-const { randomNumber } = require('../../economy')
 module.exports = {
 name: "beg",
 description: "beg for coins",
