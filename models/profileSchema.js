@@ -11,6 +11,10 @@ const profileSchema = mongoose.Schema({
         type: Number,
         default: 0
     },
+    items: {
+        type: [Object],
+        required: false
+    },
     xp: {
         type: Number,
         defualt: 0
