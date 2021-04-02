@@ -2,26 +2,41 @@ const { MessageEmbed } = require('discord.js')
 
 module.exports = (client) => {}
 
-module.exports.error = (title, errMessage, message) => {
+module.exports.error = (title, errMessage, message, color) => {
+    if (!color) {
+        color = '#ff0000'
+    }
     const errorEmbed = new MessageEmbed()
     .setTitle(title)
     .setDescription(errMessage)
-    .setColor('#ff0000')
+    .setColor(color)
+    .setTimestamp()
+    
     return message.channel.send(errorEmbed)
 }
 
-module.exports.success = (title, succesMessage, message) => {
+module.exports.succes = (title, succesMessage, message, color) => {
+    if (!color) {
+        color = '#00ff00' 
+    }
     const succesEmbed = new MessageEmbed()
     .setTitle(title)
     .setDescription(succesMessage)
-    .setColor('#00ff00')
+    .setColor(color)
+    .setTimestamp()
+
     return message.channel.send(succesEmbed)
 }
 
-module.exports.fieldListEmbed = (title, fields, message) => {
+module.exports.fieldListEmbed = (title, fields, message, color) => {
+    if (!color) {
+        color = '#00ff00'
+    }
     const fieldListEmbed = new MessageEmbed()
     .setTitle(title)
     .addFields(fields)
-    .setColor('#00ff00')
+    .setColor(color)
+    .setTimestamp()
+
     return message.channel.send(fieldListEmbed)
 }
