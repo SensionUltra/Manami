@@ -21,11 +21,11 @@
     "redis": "^3.1.0",
     "sakuranpm": "^1.1.0"
   },
-"_moduleAliases": {
-  "@root"       : ".",
-  "@schemas"    : "./schemas",
-  "@eco"      : "./modules/economy", 
-  "@auto"      : "./modules/auto", 
-  "@misc"      : "./modules/misc" 
-}
+  "_moduleAliases": {
+    "@root": ".",
+    "@schemas": "./schemas",
+    "@eco": "./modules/economy",
+    "@auto": "./modules/auto",
+    "@misc": "./modules/misc"
+  }
 }
