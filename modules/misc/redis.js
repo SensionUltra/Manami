@@ -1,5 +1,5 @@
 const redis = require('redis')
-const { redisString } = require('./token.json')
+const { redisString } = require('@root/token.json')
 module.exports = async () => {
   return await new Promise((resolve, reject) => {
     const client = redis.createClient({

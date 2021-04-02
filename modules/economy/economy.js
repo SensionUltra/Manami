@@ -1,5 +1,5 @@
-const mongo = require('./mongo')
-const profileSchema = require('./models/profileSchema')
+const mongo = require('@misc/mongo')
+const profileSchema = require('@schemas/profileSchema')
 
 const coinsCache = {}
 

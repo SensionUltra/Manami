@@ -1,6 +1,6 @@
-const redis = require('../../redis')
-const { prefix } = require('../../config.json')
-
+const redis = require('@misc/redis')
+const { prefix } = require('@root/config.json')
+const embed = require('@auto/embeds')
 module.exports = {
 name: "mute",
 aliases: ["shut"],
@@ -62,14 +62,14 @@ run: async (client, message, args) => {
     const { member, channel, content, mentions, guild } = message
 
     if (!member.hasPermission('MANAGE_ROLES')) {
-        message.channel.send("You do not have permission to execute this command!")
+        embed.error('Missing Permissions', "You do not have permission to execute this command!", message)
         return
     }
 
     const split = content.trim().split(' ')
 
     if(split.length !== 4) {
-        message.channel.send('Please use the correct command syntax: ' + syntax)
+        embed.error('Incorrect Syntax', `Please use the correct command syntax: ${syntax}`, message)
         return
     }
 
@@ -77,7 +77,7 @@ run: async (client, message, args) => {
     const durationType = split[3]
 
     if (isNaN(duration)) {
-        channel.send("Please provide a duration to mute the user " + syntax)
+        embed.error('Missing Arguments', `Please provide a duration to mute the user`, message)
         return
     }
 
@@ -89,7 +89,7 @@ run: async (client, message, args) => {
     }
 
     if  (!durations[durationType]) {
-        channel.send("Please provide a valid duration type " + syntax)
+        embed.error('Incorrect Arguments', `Please provide a valid duration type ${syntax}`, message)
         return
     }
 
@@ -98,7 +98,7 @@ run: async (client, message, args) => {
     const target = mentions.users.first()
     
     if(!target) {
-        channel.send("Not a valid user")
+        embed.error('Incorrect Mention', "That is not a valid user", message)
         return
     }
 

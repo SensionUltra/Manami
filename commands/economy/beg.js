@@ -1,4 +1,4 @@
-const economy = require('../../economy');
+const economy = require('@eco/economy');
 module.exports = {
 name: "beg",
 description: "beg for coins",

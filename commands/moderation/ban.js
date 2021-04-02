@@ -1,5 +1,5 @@
 const Discord = require('discord.js')
-const embed = require('../../embeds')
+const embed = require('@auto/embeds')
 module.exports = {
     name: "ban",
     description: "bans the pinged user",

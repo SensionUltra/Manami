@@ -1,3 +1,4 @@
+require('module-alias/register')
 const Discord = require("discord.js");
 const { token, mongooseString, lavaPass } = require("./token.json")
 const config = require("./config.json")

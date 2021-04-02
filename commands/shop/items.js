@@ -1,8 +1,8 @@
 const { MessageEmbed } = require("discord.js");
 const fs = require('fs')
-const economy = require('../../economy');
-const shop = require('../../shop')
-const embed = require('../../embeds')
+const economy = require('@eco/economy');
+const shop = require('@eco/shop')
+const embed = require('@auto/embeds')
 module.exports = {
 name: "items",
 description: "see how many items you have",

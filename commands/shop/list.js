@@ -1,6 +1,6 @@
 const { MessageEmbed } = require("discord.js");
 const fs = require('fs')
-const embed = require('../../embeds')
+const embed = require('@auto/embeds')
 module.exports = {
 name: "list",
 description: "list the items that you can buy from the shop",
