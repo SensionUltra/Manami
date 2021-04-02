@@ -1,4 +1,4 @@
-const embed = require('../../embeds')
+const embed = require('@auto/embeds')
 module.exports = {
 name: "modify",
 description: "modified text with the options",

@@ -1,4 +1,4 @@
-const economy = require('../../economy')
+const economy = require('@eco/economy')
 module.exports = {
 name: "set",
 aliases: ['setbal', 'setbalance'],

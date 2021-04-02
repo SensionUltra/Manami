@@ -1,7 +1,7 @@
 const fs = require('fs')
-const economy = require('../../economy');
-const shop = require('../../shop')
-const embed = require('../../embeds')
+const economy = require('@eco/economy');
+const shop = require('@eco/shop')
+const embed = require('@auto/embeds')
 module.exports = {
 name: "buy",
 description: "buy stuff from the shop",
