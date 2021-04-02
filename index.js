@@ -1,6 +1,8 @@
 const Discord = require("discord.js");
-const { token, mongooseString } = require("./token.json")
+const { token, mongooseString, lavaPass } = require("./token.json")
 const config = require("./config.json")
+const { Manager } = require('erela.js')
+const Spotify = require('erela.js-spotify')
 const client = new Discord.Client({
   messageCacheMaxSize: 1000,
     messageCacheLifetime: 43200,
@@ -10,6 +12,9 @@ const mongoose = require('mongoose')
 const Kitsu = require('kitsu.js')
 client.kitsu = new Kitsu();
 
+const clientID = "8df0a986d41e4b76a0d2f1cff77885a3"
+const clientSecret = "d8c42c3261fe4315b6190a7cea2dd5f8"
+
 client.commands = new Discord.Collection();
 client.aliases = new Discord.Collection();
 client.on("ready", () => {
@@ -17,11 +22,46 @@ client.on("ready", () => {
     type: "LISTENING",
   });
   console.log(`${client.user.username} is Online! ID: ${client.user.id}`);
+  client.manager.init(client.user.id)
 }); 
 
 ["command"].forEach((handler) => {
   require(`./handlers/${handler}`)(client);
 });
+
+client.manager = new Manager({
+  nodes: [{
+    host: "localhost",
+    port: 2333,
+    password: lavaPass
+  },
+],
+send(id, payload) {
+  const guild = client.guilds.cache.get(id);
+  if (guild) guild.shard.send(payload)
+},
+plugins: [
+    // Initiate the plugin and pass the two required options.
+    new Spotify({
+      clientID,
+      clientSecret
+    })
+  ]
+})
+  .on("nodeConnect", node => console.log(`Node ${node.options.identifier} connected`))
+  .on("nodeError", (node, error) => console.log(`Node ${node.options.identifier} had an error: ${error.message}`))
+  .on("trackStart", (player, track) => {
+    client.channels.cache
+      .get(player.textChannel)
+      .send(`Now playing: ${track.title}`);
+  })
+  .on("queueEnd", (player) => {
+    client.channels.cache
+      .get(player.textChannel)
+      .send("Queue has ended.");
+
+    player.destroy();
+  });
 
 client.on("message", async message => {
   
@@ -50,6 +90,7 @@ client.on("message", async message => {
           command.run(client, message, args);
   
    
-   })
+   });
+   client.on("raw", (d) => client.manager.updateVoiceState(d));
 
 client.login(token);
