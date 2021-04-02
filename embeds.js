@@ -10,7 +10,7 @@ module.exports.error = (title, errMessage, message) => {
     return message.channel.send(errorEmbed)
 }
 
-module.exports.succes = (title, succesMessage, message) => {
+module.exports.success = (title, succesMessage, message) => {
     const succesEmbed = new MessageEmbed()
     .setTitle(title)
     .setDescription(succesMessage)

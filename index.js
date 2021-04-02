@@ -9,7 +9,6 @@ const client = new Discord.Client({
 const mongoose = require('mongoose')
 const Kitsu = require('kitsu.js')
 client.kitsu = new Kitsu();
-const levels = require('./levels')
 
 client.commands = new Discord.Collection();
 client.aliases = new Discord.Collection();
@@ -52,6 +51,5 @@ client.on("message", async message => {
   
    
    })
-   levels(client)
 
 client.login(token);
