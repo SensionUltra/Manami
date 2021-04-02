@@ -1,4 +1,4 @@
-const { MessageEmbed } = require("discord.js");
+const embed = require('../../embeds')
 module.exports = {
 name: "modify",
 description: "modified text with the options",
@@ -8,12 +8,9 @@ const option = args[0]
 const text = args.slice(1).join(' ')
 
 const optionsList = [
-    {name: `gap`, value: `Adds a space inbetween each charicter`, inline: true},
-    {name: `reverse`, value: `Reverses the text`, inline: true},
+    {name: `Gap`, value: `Adds a space inbetween each charicter`, inline: true},
+    {name: `Reverse`, value: `Reverses the text`, inline: true},
 ]
-const options = new MessageEmbed()
-.setTitle(`Options To Modify Text`)
-.addFields(optionsList)
 
 switch (option) {
     case 'gap':
@@ -28,7 +25,7 @@ switch (option) {
             message.channel.send(reversed)
                 break;
                 default: 
-                if (!option) return message.channel.send(options)
+                if (!option) return embed.fieldListEmbed('Options To Modify Text', optionsList, message)
     message.channel.send('That is not a valid option')
 }
 }
