@@ -69,7 +69,7 @@ run: async (client, message, args) => {
     const split = content.trim().split(' ')
 
     if(split.length !== 4) {
-        embed.error('Incorrect Syntax', `Please use the correct command syntax: ${syntax}`)
+        embed.error('Incorrect Syntax', `Please use the correct command syntax: ${syntax}`, message)
         return
     }
 
@@ -77,7 +77,7 @@ run: async (client, message, args) => {
     const durationType = split[3]
 
     if (isNaN(duration)) {
-        embed.error('Missing Arguments', `Please provide a duration to mute the user ${syntax}`, message)
+        embed.error('Missing Arguments', `Please provide a duration to mute the user`, message)
         return
     }
 
@@ -89,7 +89,7 @@ run: async (client, message, args) => {
     }
 
     if  (!durations[durationType]) {
-        embed.error('Incorrect Arguments', `Please provide a valid duration type ${syntax}`)
+        embed.error('Incorrect Arguments', `Please provide a valid duration type ${syntax}`, message)
         return
     }
 
