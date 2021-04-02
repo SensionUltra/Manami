@@ -13,6 +13,8 @@
     "animequote": "^1.1.1",
     "ascii-table": "0.0.9",
     "discord.js": "^12.5.1",
+    "erela.js": "^2.3.3",
+    "erela.js-spotify": "^1.2.0",
     "kitsu.js": "^2.0.0",
     "moment": "^2.29.1",
     "mongoose": "^5.12.2",
