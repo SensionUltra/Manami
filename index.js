@@ -64,7 +64,7 @@ send(id, payload) {
 client.on("message", async message => {
   let prefixObject;
   allPrefixs.forEach(obj => {
-    if (obj.guildId == message.guild.id) prefixObject = obj
+    if (obj.guildId == message?.guild?.id) prefixObject = obj
     })
     config.prefix = prefixObject?.prefix || config.prefix
 
