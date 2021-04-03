@@ -1,4 +1,5 @@
 require('module-alias/register')
+const guild = require('@settings/guild')
 const Discord = require("discord.js");
 const { token, mongooseString, lavaPass } = require("./token.json")
 const config = require("./config.json")
@@ -14,10 +15,14 @@ client.kitsu = new Kitsu();
 
 const clientID = "8df0a986d41e4b76a0d2f1cff77885a3"
 const clientSecret = "d8c42c3261fe4315b6190a7cea2dd5f8"
-
+let allPrefixs;
 client.commands = new Discord.Collection();
 client.aliases = new Discord.Collection();
-client.on("ready", () => {
+let noRepeat = 0
+client.on("ready", async () => {
+  allPrefixs = await guild.getAllPrefixes()
+if (noRepeat != 0) return
+noRepeat++
   client.user.setActivity(`m.help | ${client.guilds.cache.size} servers!`, {
     type: "LISTENING",
   });
@@ -57,7 +62,12 @@ send(id, payload) {
   });
 
 client.on("message", async message => {
-  
+  let prefixObject;
+  allPrefixs.forEach(obj => {
+    if (obj.guildId == message.guild.id) prefixObject = obj
+    })
+    config.prefix = prefixObject?.prefix || config.prefix
+
   if(message.author.bot) return;
     if(!message.guild) return;
     if(!message.content.startsWith(config.prefix)) return;
