@@ -3,7 +3,6 @@ const Discord = require("discord.js");
 const { token, mongooseString, lavaPass } = require("./token.json")
 const config = require("./config.json")
 const { Manager } = require('erela.js')
-const Spotify = require('erela.js-spotify')
 const client = new Discord.Client({
   messageCacheMaxSize: 1000,
     messageCacheLifetime: 43200,
@@ -33,21 +32,14 @@ client.on("ready", () => {
 client.manager = new Manager({
   nodes: [{
     host: "localhost",
-    port: 2333,
-    password: lavaPass
+    port: 1245,
+    password: "youshallnotpass"
   },
 ],
 send(id, payload) {
   const guild = client.guilds.cache.get(id);
   if (guild) guild.shard.send(payload)
 },
-plugins: [
-    // Initiate the plugin and pass the two required options.
-    new Spotify({
-      clientID,
-      clientSecret
-    })
-  ]
 })
   .on("nodeConnect", node => console.log(`Node ${node.options.identifier} connected`))
   .on("nodeError", (node, error) => console.log(`Node ${node.options.identifier} had an error: ${error.message}`))
