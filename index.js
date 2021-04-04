@@ -76,13 +76,13 @@ client.on("message", async message => {
   
       const args = message.content.slice(config.prefix.length).trim().split(/ +/g);
       const cmd = args.shift().toLowerCase();
-      
       if (cmd.length === 0) return;
       
       // Get the command
-      let command = client.commands.get(cmd);
+      let command = client.commands.get(cmd) // gets the cmd
+      if (command.subcommand && args != 0) command = client.commands.get(cmd + ' ' + args.splice(0, 1)) // if the cmd is the about.js cmd for a sub cmd and if there are args then it will execute the sub-cmd instead
       // If none is found, try to find it by alias
-      if (!command) command = client.commands.get(client.aliases.get(cmd));
+      if (!command) command = client.commands.get(client.aliases.get(cmd))
       if (command?.owner && config.ownerIds.includes(message.author.id) == false) {
         if (typeof(command.owner) == "string") {
           return message.channel.send(command.owner)
