@@ -68,6 +68,8 @@ client.on("message", async message => {
     })
     config.prefix = prefixObject?.prefix || config.prefix
 
+    message.guild.prefix = config.prefix
+
   if(message.author.bot) return;
     if(!message.guild) return;
     if(!message.content.startsWith(config.prefix)) return;
