@@ -28,6 +28,7 @@
     "@schemas": "./schemas",
     "@eco": "./modules/economy",
     "@auto": "./modules/auto",
-    "@misc": "./modules/misc"
+    "@misc": "./modules/misc",
+    "@settings": "./modules/settings"
   }
 }

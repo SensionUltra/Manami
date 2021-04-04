@@ -29,6 +29,5 @@ run: (client, message, args) => {
     .addFields(fields)
 
     message.channel.send(infoembed)
-    message.channel.send("\`\`Website:\`\` https://manamibot.xyz")
 }
 }

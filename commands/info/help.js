@@ -53,6 +53,7 @@ module.exports = {
           `Requested by ${message.author.tag}`,
           message.author.displayAvatarURL({ dynamic: true })
         )
+        .setImage("https://cdn.discordapp.com/attachments/815599691654889492/828162155978293278/ManamiEz.gif")
         .setTimestamp()
         .setColor(roleColor);
       return message.channel.send(embed);
