@@ -23,5 +23,15 @@
         "name": "[object Object]",
         "description": "a nice object Object",
         "price": "100"
+    },
+    {
+        "name": "[object Promise]",
+        "description": "a nice object Promise",
+        "price": "100"
+    },
+    {
+        "name": "[object Undefined]",
+        "description": "a nice object Undefined",
+        "price": "100"
     }
 ]
