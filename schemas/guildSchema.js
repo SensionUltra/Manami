@@ -11,6 +11,16 @@ const guildSchema = mongoose.Schema({
         type: String,
         default: defultprefix,
         required: true
+    },
+    welcome: {
+        channelId: {
+            type: String,
+            required: false
+        },
+        message: {
+            type: String,
+            required: false
+        }
     }
 })
 

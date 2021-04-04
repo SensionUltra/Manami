@@ -44,6 +44,47 @@ module.exports.setPrefix = async (guildId, prefix) => {
     })
 }
 
+module.exports.setWelcome = async (guildId, channelId, message) => {
+    return await mongo().then(async (mongoose) => {
+        try {
+            console.log('Running FindOneAndUpdate()')
+            const result = await guildSchema.findOneAndUpdate({
+                guildId,
+            }, {
+                guildId,
+                $set: {
+                    welcome: {
+                        channelId,
+                        message,
+                    }
+                }
+            }, {
+                upsert: true,
+                new: true
+            })
+
+            return result.prefix
+        } finally {
+            mongoose.connection.close()
+        }
+    })
+}
+
+module.exports.getWelcome = async (guildId) => {
+    return await mongo().then(async (mongoose) => {
+        try {
+            console.log('Running FindOneAndUpdate()')
+            const result = await guildSchema.findOne({
+                guildId,
+})
+
+            return result?.welcome
+        } finally {
+            mongoose.connection.close()
+        }
+    })
+}
+
 module.exports.getAllPrefixes = async () => {
     return await mongo().then(async (mongoose) => {
         try {

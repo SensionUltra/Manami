@@ -37,8 +37,8 @@ noRepeat++
 client.manager = new Manager({
   nodes: [{
     host: "localhost",
-    port: 2333,
-    password: lavaPass
+    port: 1245,
+    password: "youshallnotpass"
   },
 ],
 send(id, payload) {
@@ -61,6 +61,13 @@ send(id, payload) {
     player.destroy();
   });
 
+  client.on('guildMemberAdd', async (member) => {
+    const welcome = await guild.getWelcome(member.guild.id)
+    const message = welcome.message
+    const channel = member.guild.channels.cache.get(welcome.channelId)
+    channel.send(`${message}`)
+})
+
 client.on("message", async message => {
   let prefixObject;
   allPrefixs.forEach(obj => {
@@ -82,9 +89,9 @@ client.on("message", async message => {
       
       // Get the command
       let command = client.commands.get(cmd) // gets the cmd
-      if (command.subcommand && args != 0) command = client.commands.get(cmd + ' ' + args.splice(0, 1)) // if the cmd is the about.js cmd for a sub cmd and if there are args then it will execute the sub-cmd instead
       // If none is found, try to find it by alias
       if (!command) command = client.commands.get(client.aliases.get(cmd))
+      if (command?.subcommand && args != 0) command = client.commands.get(cmd + ' ' + args.splice(0, 1)) // if the cmd is the about.js cmd for a sub cmd and if there are args then it will execute the sub-cmd instead
       if (command?.owner && config.ownerIds.includes(message.author.id) == false) {
         if (typeof(command.owner) == "string") {
           return message.channel.send(command.owner)
