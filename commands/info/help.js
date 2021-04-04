@@ -1,6 +1,6 @@
 const { MessageEmbed } = require("discord.js");
 const { readdirSync } = require("fs");
-const { prefix } = require('@root/config.json')
+const { prefix: defultPrefix } = require('@root/config.json')
 
 module.exports = {
   name: "help",
@@ -8,7 +8,7 @@ module.exports = {
   description: "Shows all available bot commands.",
   run: async (client, message, args) => {
 
-
+    const prefix = message.guild.prefix || defultPrefix
     const roleColor =
       message.guild.me.displayHexColor === "#000000"
         ? "#ffffff"
