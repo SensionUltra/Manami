@@ -1,12 +1,11 @@
 const { MessageEmbed } = require("discord.js")
-
+const os = require('os')
 module.exports = {
 name: "info",
 aliases: ["about"],
 description: "Shows information about the Bot",
 run: (client, message, args) => {
 
-        let serv = client.guilds.cache.size;
         let totalSeconds = client.uptime / 1000;
         totalSeconds %= 86400;
         let hours = Math.floor(totalSeconds / 3600);
@@ -22,7 +21,11 @@ run: (client, message, args) => {
         {name: "Users:", value: client.users.cache.size, inline: true},
         {name: "Last Reboot:", value: `${uptime} ago`, inline: true},
         {name: "Commands:", value: `${client.commands.size - 1} Loaded`, inline: true},
-        {name: "Developers:", value: `<@712170999222632469>, <@537117477721604096>`, inline: true}
+        {name: "Developers:", value: `<@712170999222632469>, <@537117477721604096>`, inline: true},
+        {name: "Channels Cached:", value: client.channels.cache.size},
+        {name: "Platform", value: `${os.platform}`},
+        {name: "CPU", value: `Cores: ${os.cpus().length}\nModel: ${os.cpus().map(i => `${i.model}`)[0]}\nSpeed: ${os.cpus()}`},
+
     ]
     const infoembed = new MessageEmbed()
     .setTitle('Bot Information')
