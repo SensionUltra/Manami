@@ -3,6 +3,7 @@ const moment = require('moment');
 module.exports = {
 name: "whois",
 description: "gets info about a user",
+cooldown: 3000,
 run: (client, message, args) => {
 const target = message.mentions.users.first() || client.users.cache.find(user => user.username.toLowerCase() === args.join(" ").toLowerCase()) || client.users.cache.get(args[0]) || message.author
 const targetMember = message.mentions.members.first() || message.guild.members.cache.find(member => member.user.username.toLowerCase() === args.join(" ").toLowerCase()) || message.guild.members.cache.get(args[0]) || message.guild.members.cache.find(member => member.displayName.toLowerCase() === args.join(" ").toLowerCase()) || message.member

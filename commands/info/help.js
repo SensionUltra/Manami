@@ -6,6 +6,7 @@ module.exports = {
   name: "help",
   aliases : ['h'],
   description: "Shows all available bot commands.",
+  cooldown: 3000,
   run: async (client, message, args) => {
 
     const prefix = message.guild.prefix || defultPrefix

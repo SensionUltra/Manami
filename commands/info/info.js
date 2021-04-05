@@ -4,6 +4,7 @@ module.exports = {
 name: "info",
 aliases: ["about"],
 description: "Shows information about the Bot",
+cooldown: 3000,
 run: (client, message, args) => {
 
     const core = os.cpus()[0]
@@ -27,6 +28,8 @@ run: (client, message, args) => {
         {name: "Channels Cached:", value: client.channels.cache.size},
         {name: "Platform", value: `${os.platform}`},
         {name: "CPU", value: `Cores: ${os.cpus().length}\nModel: ${os.cpus().map(i => `${i.model}`)[0]}\nSpeed: ${core.speed}MHz`},
+
+
 
     ]
     const infoembed = new MessageEmbed()

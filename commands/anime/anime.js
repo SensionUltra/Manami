@@ -4,6 +4,7 @@ module.exports = {
     name: "anime",
     aliases: ["animesearch", "searchanime"],
     descrption: "Get info about an anime!",
+    cooldown: 3000,
     run: async(client, message, args) => {
        message.channel.startTyping();
             let search = args.join(" ");

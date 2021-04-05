@@ -4,6 +4,7 @@ module.exports = {
 name: "balance",
 aliases: ["bal", "howmuchmoneyigot"],
 description: "See how much coins you have",
+cooldown: 2000,
 run: async(client, message, args) => {
     const target = message.mentions.users.first() || message.author
     const targetId = target.id

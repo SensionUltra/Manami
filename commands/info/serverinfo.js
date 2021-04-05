@@ -3,6 +3,7 @@ const Discord = require('discord.js')
 module.exports = {
 name: "serverinfo",
 aliases: ["infoboutdaserver"],
+cooldown: 3000,
 description: "get information about the current guild",
 run: (client, message, args) => {
     const fields = [  
