@@ -21,11 +21,14 @@ client.aliases = new Discord.Collection();
 let noRepeat = 0
 client.on("ready", async () => {
   allPrefixs = await guild.getAllPrefixes()
-if (noRepeat != 0) return
-noRepeat++
+        if (noRepeat != 0) return
+        noRepeat++
+        client.supportServer = client.guilds.cache.get('826614093695811594')
+        client.supportServer.reportChannel = client.channels.cache.get('827075339980111925')
   client.user.setActivity(`m.help | ${client.guilds.cache.size} servers!`, {
-    type: "LISTENING",
+    type: "LISTENING",// sets the activity
   });
+// logs info about the currently logged in client
   console.log(`${client.user.username} is Online! ID: ${client.user.id}`);
   client.manager.init(client.user.id)
 }); 
