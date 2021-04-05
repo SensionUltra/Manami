@@ -4,6 +4,7 @@ module.exports = {
 name: "info",
 aliases: ["about"],
 description: "Shows information about the Bot",
+cooldown: 3000,
 run: (client, message, args) => {
 
     const core = os.cpus()[0]

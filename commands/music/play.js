@@ -1,6 +1,7 @@
 module.exports = {
 name: "play",
 description: "play music :slight_smile:",
+cooldown: 3000,
 run: async(client, message, args) => {
     const search = await client.manager.search(args, message.author);
     const player = client.manager.create({
