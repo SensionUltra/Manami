@@ -28,6 +28,8 @@ run: (client, message, args) => {
         {name: "Platform", value: `${os.platform}`},
         {name: "CPU", value: `Cores: ${os.cpus().length}\nModel: ${os.cpus().map(i => `${i.model}`)[0]}\nSpeed: ${core.speed}MHz`},
 
+
+
     ]
     const infoembed = new MessageEmbed()
     .setTitle('Bot Information')

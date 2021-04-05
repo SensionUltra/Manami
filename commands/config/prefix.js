@@ -3,6 +3,7 @@ const embed = require('@auto/embeds')
 module.exports = {
 name: "prefix",
 description: "sets the servers prefix",
+cooldown: 120000,
 run: async(client, message, args) => {
     const guildId = message.guild.id
     const prefix = args.join(' ') || 'm.'

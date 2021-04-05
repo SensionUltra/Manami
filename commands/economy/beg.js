@@ -2,6 +2,7 @@ const economy = require('@eco/economy');
 module.exports = {
 name: "beg",
 description: "beg for coins",
+cooldown: 3000,
 run: async(client, message, args) => {
     const target = message.author
     const targetId = target.id

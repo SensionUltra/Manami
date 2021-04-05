@@ -4,6 +4,7 @@ module.exports = {
 name: "set-welcome",
 aliases: ["setupwelcome", "setwelcome"],
 description: "Setup the welcome channel for your server",
+cooldown: 60000,
 run: (client, message, args) => {
     const channelId = message.mentions.channels.first().id
     const channelName = client.channels.cache.get(channelId)

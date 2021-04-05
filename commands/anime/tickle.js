@@ -4,6 +4,7 @@ module.exports = {
       name: "tickle",
       aliases: ["tickle"],
       description: "tickles a user!",
+      cooldown: 3000,
   run: async (client, message, args) => {
     const snpm = require('sakuranpm');
 

@@ -3,6 +3,7 @@ const guild = require('@settings/guild')
 const Discord = require("discord.js");
 const { token, mongooseString, lavaPass } = require("./token.json")
 const config = require("./config.json")
+const ms = require('ms')
 const { Manager } = require('erela.js')
 const client = new Discord.Client({
   messageCacheMaxSize: 1000,
@@ -13,11 +14,11 @@ const mongoose = require('mongoose')
 const Kitsu = require('kitsu.js')
 client.kitsu = new Kitsu();
 
-const clientID = "8df0a986d41e4b76a0d2f1cff77885a3"
-const clientSecret = "d8c42c3261fe4315b6190a7cea2dd5f8"
 let allPrefixs;
+
 client.commands = new Discord.Collection();
 client.aliases = new Discord.Collection();
+const Cooldown = new Discord.Collection();
 let noRepeat = 0
 client.on("ready", async () => {
   allPrefixs = await guild.getAllPrefixes()
@@ -101,10 +102,16 @@ client.on("message", async message => {
         } else return
       }
       // If a command is finally found, run the command
-      if (command) 
-          command.run(client, message, args);
-  
-   
+      if (command) {
+        if(command.cooldown) {
+            if(Cooldown.has(`${command.name}${message.author.id}`)) return message.channel.send(`Woah, way to quick there, you're on a \`${ms(Cooldown.get(`${command.name}${message.author.id}`) - Date.now(), {long : true})}\` cooldown.`)
+            command.run(client, message, args)
+            Cooldown.set(`${command.name}${message.author.id}`, Date.now() + command.cooldown)
+            setTimeout(() => {
+              Cooldown.delete(`${command.name}${message.author.id}`)
+            }, command.cooldown)
+        }
+    }
    });
    client.on("raw", (d) => client.manager.updateVoiceState(d));
 
