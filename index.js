@@ -104,7 +104,7 @@ client.on("message", async message => {
       // If a command is finally found, run the command
       if (command) {
         if(command.cooldown) {
-            if(Cooldown.has(`${command.name}${message.author.id}`)) return message.channel.send(`Woah, way to quick there, you're on a \`${ms(Cooldown.get(`${command.name}${message.author.id}`) - Date.now(), {long : true})}\` cooldown.`)
+            if(Cooldown.has(`${command.name}${message.author.id}`) && config.ownerIds.includes(message.author.id) == false) return message.channel.send(`Woah, way to quick there, you're on a \`${ms(Cooldown.get(`${command.name}${message.author.id}`) - Date.now(), {long : true})}\` cooldown.`)
             command.run(client, message, args)
             Cooldown.set(`${command.name}${message.author.id}`, Date.now() + command.cooldown)
             setTimeout(() => {
