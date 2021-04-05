@@ -6,6 +6,8 @@ aliases: ["about"],
 description: "Shows information about the Bot",
 run: (client, message, args) => {
 
+    const core = os.cpus()[0]
+
         let totalSeconds = client.uptime / 1000;
         totalSeconds %= 86400;
         let hours = Math.floor(totalSeconds / 3600);
@@ -24,7 +26,7 @@ run: (client, message, args) => {
         {name: "Developers:", value: `<@712170999222632469>, <@537117477721604096>`, inline: true},
         {name: "Channels Cached:", value: client.channels.cache.size},
         {name: "Platform", value: `${os.platform}`},
-        {name: "CPU", value: `Cores: ${os.cpus().length}\nModel: ${os.cpus().map(i => `${i.model}`)[0]}\nSpeed: ${os.cpus()}`},
+        {name: "CPU", value: `Cores: ${os.cpus().length}\nModel: ${os.cpus().map(i => `${i.model}`)[0]}\nSpeed: ${core.speed}MHz`},
 
     ]
     const infoembed = new MessageEmbed()
