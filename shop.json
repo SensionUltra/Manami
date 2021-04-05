@@ -1,37 +1,22 @@
 [
     {
-        "name": "carrot",
-        "description": "a nice sweet fresh carrot",
-        "price": "4"
+        "name": "cat",
+        "description": "a cat",
+        "price": "30"
     },
     {
-        "name": "avacado",
-        "description": "a nice avacado good for breakfast",
-        "price": "6"
+        "name": "dog",
+        "description": "a cute dog",
+        "price": "30"
     },
     {
         "name": "computer",
-        "description": "a nice good gaming computer with rbg lights",
+        "description": "a good gaming computer with rbg lights",
         "price": "1000"
     },
     {
-        "name": "[object Set]",
-        "description": "a nice object Set", 
-        "price": "100"
-    },
-    {
-        "name": "[object Object]",
-        "description": "a nice object Object",
-        "price": "100"
-    },
-    {
-        "name": "[object Promise]",
-        "description": "a nice object Promise",
-        "price": "100"
-    },
-    {
-        "name": "[object Undefined]",
-        "description": "a nice object Undefined",
-        "price": "100"
+        "name": "bird",
+        "description": "a lovely nice macaw",
+        "price": "50"
     }
 ]
