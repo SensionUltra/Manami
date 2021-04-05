@@ -40,8 +40,8 @@ client.on("ready", async () => {
 client.manager = new Manager({
   nodes: [{
     host: "localhost",
-    port: 2333,
-    password: lavaPass
+    port: 1245,
+    password: 'youshallnotpass'
   },
 ],
 send(id, payload) {
