@@ -73,7 +73,7 @@ module.exports.setWelcome = async (guildId, channelId, message) => {
 module.exports.getWelcome = async (guildId) => {
     return await mongo().then(async (mongoose) => {
         try {
-            console.log('Running FindOneAndUpdate()')
+            console.log('Running FindOne()')
             const result = await guildSchema.findOne({
                 guildId,
 })

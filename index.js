@@ -66,9 +66,9 @@ send(id, payload) {
 
   client.on('guildMemberAdd', async (member) => {
     const welcome = await guild.getWelcome(member.guild.id)
-    const message = welcome.message
+    const message = welcome.message.replace(`<@>`, `<@${member.id}>`)
     const channel = member.guild.channels.cache.get(welcome.channelId)
-    channel.send(`${message}`)
+    channel.send(message)
 })
 
 client.on("message", async message => {

@@ -9,6 +9,6 @@ run: (client, message, args) => {
     const channelName = client.channels.cache.get(channelId)
     const welcomeMessage = args.slice(1).join(` `)
     guild.setWelcome(message.guild.id, channelId, welcomeMessage)
-    embed.succes('Succesfully Set The Welcome Message', `Succesfully set the welcome message to "${welcomeMessage}", and welcome channel to ${channelName.name}`, message)
+    embed.succes('Succesfully Set The Welcome Message', `Succesfully set the welcome message to "${welcomeMessage}", and welcome channel to #${channelName.name}`, message)
 }
 }
