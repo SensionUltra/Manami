@@ -1,7 +1,5 @@
 const { MessageEmbed } = require('discord.js')
 
-module.exports = (client) => {}
-
 module.exports.error = (title, errMessage, message, color) => {
     if (!color) {
         color = '#ff0000'
