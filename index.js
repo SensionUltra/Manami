@@ -22,21 +22,14 @@ client.aliases = new Discord.Collection();
 const Cooldown = new Discord.Collection();
 
 client.on("ready", async () => {
-const restartMessage = await clientDoc.getRestartMessage(client)
-if (restartMessage) {
-  console.log('theres a restart message')
-  restartMessage.edit('Bot Restarted')
-}
-    
-
   allPrefixs = await guild.getAllPrefixes()
   client.guilds.cache.forEach(guild => {
     allPrefixs.forEach(obj => {
       if (obj.guildId == guild.id) {
         guild.prefix = obj.prefix
       }
-      if (!guild.prefix) guild.prefix = config.prefix
-  })
+    })
+    if (!guild.prefix) guild.prefix = config.prefix
 })
         /*========================<-Un=Comment=This->===========================*/
         // client.supportServer = client.guilds.cache.get('826614093695811594')
