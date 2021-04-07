@@ -1,15 +1,16 @@
+const embed = require('@auto/embeds')
 module.exports = {
     name: "role-",
     aliases: ["removerole", "remrole"],
     description: "remove a member's role",
     run: (client, message, args) => {
         if(!message.member.hasPermission("MANAGE_ROLES")) {
-            message.reply("You are missing the \`\`MANAGE_ROLES\`\` Permission!")
+            embed.error('Missing Permissions', "You are missing the \`MANAGE_ROLES\` Permission!", message)
             return
         }
         const target = message.mentions.users.first() || client.users.cache.find(user => user.username.toLowerCase() === args.join(" ").toLowerCase()) || client.users.cache.get(args[0])
         if (!target) {
-        message.reply("PLease specify someone to remove their role")
+        embed.error('Missing Arguments', "Please specify someone to remove their role", message)
         }
     
         args.shift()
@@ -21,7 +22,7 @@ module.exports = {
             return role.name === roleName
         })
         if (!role) {
-            message.reply(`${roleName} is not valid`)
+            embed.error('Invalid Arguments', `${roleName} is not valid`, message)
             return
         }
 
@@ -29,12 +30,12 @@ module.exports = {
         const member = guild.members.cache.get(target.id)
 
         if(!member.roles.cache.get(role.id)) {
-            message.channel.send(`${target} does not have the specified role`)
+            embed.error('Incorrect Role', `${target} does not have the specified role`, message)
             return
         }
 
         member.roles.remove(role)
     
-        message.channel.send(`Successfully removed ${roleName} role from ${target} !`)
+        embed.succes('Succesfully Removed The Role', `Successfully removed ${roleName} role from ${target}!`, message)
     }
     }

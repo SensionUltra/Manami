@@ -2,7 +2,7 @@ const { MessageEmbed } = require('discord.js')
 
 module.exports = {
     name: "queue",
-    description: "",
+    description: "Lists the currently queud song",
     cooldown: 3000,
     run: async(client, message, args) => {
         const player = client.manager.players.get(message.guild.id)

@@ -1,6 +1,6 @@
 module.exports = {
 name: "8ball",
-description: "",
+description: "Let the ball of 8 decide your future",
 run: (client, message, args) => {
     const question = args.join(' ')
     if (!question) return message.channel.send('i cannot predict something from nothing')

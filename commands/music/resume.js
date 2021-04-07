@@ -1,6 +1,6 @@
 module.exports = {
     name: "resume",
-    description: "",
+    description: "Unpauses the currently paused song",
     cooldown: 3000,
     run: async(client, message, args) => {
         const player = client.manager.players.get(message.guild.id)
