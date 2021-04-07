@@ -59,20 +59,28 @@ module.exports = {
         .setColor(roleColor);
       return message.channel.send(embed);
     } else {
-      let command =
-        client.commands.get(args[0].toLowerCase()) ||
-        client.commands.find(
-          (c) => c.aliases && c.aliases.includes(args[0].toLowerCase())
+      let command = client.commands.get(args[0].toLowerCase()) || client.commands.find((c) => c.aliases && c.aliases.includes(args[0].toLowerCase())
         );
         if (command?.owner) {
           command = undefined
         }
-      if (!command) {
-        const embed = new MessageEmbed()
-          .setTitle(`Invalid command! Use \`${prefix}help\` for all of my commands!`)
-          .setColor("FF0000");
-        return message.channel.send(embed);
-      }
+        if (!command) {
+          command = client.categories.get(args[0].toLowerCase())
+          console.log(command)
+          if (!command) {
+            const embed = new MessageEmbed()
+              .setTitle(`Invalid command! Use \`${prefix}help\` for all of my commands!`)
+              .setColor("FF0000");
+            return message.channel.send(embed);
+          }
+          const embed = new MessageEmbed()
+          .setTitle('Command Catagory:')
+          .addFields(
+            {name: `Catagory Name`, value: command.name},
+            {name: `Amount Of Commands`, value: command.cmdAmount},
+          )
+          return message.channel.send(embed)
+        }
 
       const embed = new MessageEmbed()
         .setTitle("Command Details:")

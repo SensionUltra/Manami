@@ -19,6 +19,7 @@ let allPrefixs;
 
 client.commands = new Discord.Collection();
 client.aliases = new Discord.Collection();
+client.categories = new Discord.Collection();
 const Cooldown = new Discord.Collection();
 
 client.on("ready", async () => {
@@ -82,7 +83,6 @@ send(id, payload) {
 })
 
 client.on("message", async message => {
-
   if(message.author.bot) return;
     if(!message.guild) return;
     if(!message.content.startsWith(message.guild.prefix)) return;

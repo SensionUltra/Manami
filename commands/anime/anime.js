@@ -1,8 +1,8 @@
 const { MessageEmbed } = require('discord.js');
 let aq = require('animequote');
 module.exports = {
-    name: "anime",
-    aliases: ["animesearch", "searchanime"],
+    name: "animesearch",
+    aliases: ["searchanime"],
     description: "Get info about an anime!",
     cooldown: 3000,
     run: async(client, message, args) => {
