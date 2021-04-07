@@ -9,11 +9,17 @@ run: async(client, message, args) => {
 
     let doggie = await axios.get('https://api.thedogapi.com/v1/images/search')
     .then((res) => {
-
+const { name, life_span, temperament, bred_for } = res.data[0].breeds[0]
         const dog = new MessageEmbed()
         .setTitle("Doggy 🐶")
         .setURL(res.data[0].url)
         .setImage(res.data[0].url)
+        .addFields(
+            {name: 'name', value: name},
+            {name: 'life span', value: life_span},
+            {name: 'about', value: temperament},
+            {name: 'bred for', value: bred_for},
+        )
         .setTimestamp()
         .setFooter(`Requested By ${message.author.username}`)
 
