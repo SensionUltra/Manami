@@ -2,7 +2,7 @@ require('module-alias/register')
 const guild = require('@settings/guild')
 const clientDoc = require('@client/client')
 const Discord = require("discord.js");
-const { token, mongooseString, lavaPass } = require("./token.json")
+const { token, mongooseString, lavaPass, host } = require("./token.json")
 const config = require("./config.json")
 const ms = require('ms')
 const { Manager } = require('erela.js')
@@ -55,11 +55,11 @@ if (restartMessage) {
 });
 
 client.manager = new Manager({
-  nodes: [{
-    host: "localhost",
-    port: 1245,
-    password: 'youshallnotpass'
-  },
+    nodes: [{
+      host: host,
+      port: 2293,
+      password: lavaPass
+    },
 ],
 send(id, payload) {
   const guild = client.guilds.cache.get(id);
