@@ -17,14 +17,15 @@ module.exports = (client) => {
             const subcommands = readdirSync(`./commands/${dir}/${subcommand}/`);// get a list of the sub commands
             for (let command of subcommands) {
                 let pull = require(`../commands/${dir}/${subcommand}/${command}`);
-                console.log(pull) 
                 if (command == 'about.js'  && pull.name) {
                     client.commands.set(pull.name, pull)
-                } else if (pull.name) {
+                } else if (pull.name && pull.description) {
                     client.commands.set((subcommand + ' ' + pull.name), pull);
-                    table.addRow(command, '✅');
-                } else {
-                    table.addRow(command, `❌  -> missing a help.name, or help.name is not a string.`);
+                    table.addRow(command, `✅  -> sub-command of ${subcommand}`);
+                } else if (!pull.description) {
+                    table.addRow(command, `❌  -> missing a description, or the description is not a string. sub-command of ${subcommand}`);
+                } else if (!pull.name) {
+                    table.addRow(command, `❌  -> missing a name, or the name is not a string. sub-command of ${subcommand}`);
                     continue;
                 }
                 
@@ -45,14 +46,15 @@ module.exports = (client) => {
         for (let file of commands) {
             let pull = require(`../commands/${dir}/${file}`);
     
-            if (pull.name) {
-                client.commands.set(pull.name, pull);
-                table.addRow(file, '✅');
-            } else {
-                table.addRow(file, `❌  -> missing a help.name, or help.name is not a string.`);
+            if (!pull.description) {
+                table.addRow(file, `❌  -> missing a description, or the description is not a string. catagory: ${dir}`);
+            } else if (!pull.name) {
+                table.addRow(file, `❌  -> missing a name, or the name is not a string. catagory: ${dir}`);
                 continue;
+            } else if (pull.name) {
+                client.commands.set(pull.name, pull);
+                table.addRow(file, `✅  -> ${dir}`);
             }
-    
             // If there's an aliases key, read the aliases.
             if (pull.aliases && Array.isArray(pull.aliases)) pull.aliases.forEach(alias => client.aliases.set(alias, pull.name));
         }

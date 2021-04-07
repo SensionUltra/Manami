@@ -34,6 +34,7 @@
     "@eco": "./modules/economy",
     "@auto": "./modules/auto",
     "@misc": "./modules/misc",
-    "@settings": "./modules/settings"
+    "@settings": "./modules/settings",
+    "@client": "./modules/client"
   }
 }

@@ -92,7 +92,6 @@ module.exports.getAllPrefixes = async () => {
             const result = await guildSchema.find({
                 __v: 0
             })
-console.log(result)
             return result
         } finally {
             mongoose.connection.close()

@@ -1,5 +1,6 @@
 require('module-alias/register')
 const guild = require('@settings/guild')
+const clientDoc = require('@client/client')
 const Discord = require("discord.js");
 const { token, mongooseString, lavaPass } = require("./token.json")
 const config = require("./config.json")
@@ -19,13 +20,28 @@ let allPrefixs;
 client.commands = new Discord.Collection();
 client.aliases = new Discord.Collection();
 const Cooldown = new Discord.Collection();
-let noRepeat = 0
+
 client.on("ready", async () => {
+const restartMessage = await clientDoc.getRestartMessage(client)
+if (restartMessage) {
+  console.log('theres a restart message')
+  restartMessage.edit('Bot Restarted')
+}
+    
+
   allPrefixs = await guild.getAllPrefixes()
-        if (noRepeat != 0) return
-        noRepeat++
-        client.supportServer = client.guilds.cache.get('826614093695811594')
-        client.supportServer.reportChannel = client.channels.cache.get('827075339980111925')
+  client.guilds.cache.forEach(guild => {
+    allPrefixs.forEach(obj => {
+      if (obj.guildId == guild.id) {
+        guild.prefix = obj.prefix
+      }
+      if (!guild.prefix) guild.prefix = config.prefix
+  })
+})
+        /*========================<-Un=Comment=This->===========================*/
+        // client.supportServer = client.guilds.cache.get('826614093695811594')
+        // client.supportServer.reportChannel = client.channels.cache.get('827075339980111925')
+        /*========================<----------------->===========================*/
   client.user.setActivity(`m.help | ${client.guilds.cache.size} servers!`, {
     type: "LISTENING",// sets the activity
   });
@@ -73,22 +89,14 @@ send(id, payload) {
 })
 
 client.on("message", async message => {
-  if (message.channel.type == 'dm') return
-  let prefixObject;
-  allPrefixs.forEach(obj => {
-    if (obj.guildId == message?.guild?.id) prefixObject = obj
-    })
-    config.prefix = prefixObject?.prefix || config.prefix
-
-    message.guild.prefix = config.prefix
 
   if(message.author.bot) return;
     if(!message.guild) return;
-    if(!message.content.startsWith(config.prefix)) return;
+    if(!message.content.startsWith(message.guild.prefix)) return;
     
        if (!message.member) message.member = await message.guild.fetchMember(message);
   
-      const args = message.content.slice(config.prefix.length).trim().split(/ +/g);
+      const args = message.content.slice(message.guild.prefix.length).trim().split(/ +/g);
       const cmd = args.shift().toLowerCase();
       if (cmd.length === 0) return;
       
@@ -111,6 +119,8 @@ client.on("message", async message => {
             setTimeout(() => {
               Cooldown.delete(`${command.name}${message.author.id}`)
             }, command.cooldown)
+        } else {
+          command.run(client, message, args)
         }
     }
    });
