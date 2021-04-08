@@ -10,10 +10,14 @@ let cmdTable = new ascii("Commands");
 cmdTable.setHeading("Command", "Load status");
 
 module.exports = (client) => {
+    let dirAmount = 0
+    let totalCmdAmount = 0
     readdirSync("./commands/").forEach(dir => {
-let cmdAmount = 0
+        dirAmount++
+        let cmdAmount = 0
         readdirSync(`./commands/${dir}/`).forEach(file => {
-            cmdAmount++
+            cmdAmount++// amount of cmds in that dir
+            totalCmdAmount++
         })
         const category = {
             name: dir,
@@ -22,6 +26,8 @@ let cmdAmount = 0
                 client.categories.set(dir, category);
                 categoryTable.addRow(dir, `✅ -> ${cmdAmount} commands`);
         })
+        categoryTable.addRow()
+        categoryTable.addRow(`${dirAmount} Catagorys!`, `${totalCmdAmount} Total Commands!`)
     // Read every commands subfolder
     readdirSync("./commands/").forEach(dir => {
         const listOfSubcommands = readdirSync(`./commands/${dir}/`).filter(file => fs.lstatSync(`./commands/${dir}/${file}`).isDirectory()); // filters so that it only has folders // gets a list of folders with sub commands
