@@ -15,6 +15,8 @@ const mongoose = require('mongoose')
 const Kitsu = require('kitsu.js')
 client.kitsu = new Kitsu();
 
+if (client.user.id == 828753390216806410) config.prefix = 'd.'
+
 let allPrefixs;
 
 client.commands = new Discord.Collection();
