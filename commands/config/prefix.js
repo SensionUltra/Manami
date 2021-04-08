@@ -8,7 +8,7 @@ run: async(client, message, args) => {
     const guildId = message.guild.id
     const prefix = args.join(' ') || 'm.'
     const newPrefix = await guild.setPrefix(guildId, prefix)
-    guild.prefix = prefix
+    message.guild.prefix = prefix
     embed.succes('Succesfully Changed The Server Prefix', `Succesfully changed the server prefix to ${newPrefix}`, message)
 }
 }
