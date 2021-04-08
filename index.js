@@ -15,7 +15,6 @@ const mongoose = require('mongoose')
 const Kitsu = require('kitsu.js')
 client.kitsu = new Kitsu();
 
-if (client.user.id == 828753390216806410) config.prefix = 'd.'
 
 let allPrefixs;
 
@@ -25,6 +24,7 @@ client.categories = new Discord.Collection();
 const Cooldown = new Discord.Collection();
 
 client.on("ready", async () => {
+  if (client.user.id == 828753390216806410) config.prefix = 'd.'
   allPrefixs = await guild.getAllPrefixes()
   client.guilds.cache.forEach(guild => {
     allPrefixs.forEach(obj => {
@@ -38,13 +38,13 @@ client.on("ready", async () => {
         // client.supportServer = client.guilds.cache.get('826614093695811594')
         // client.supportServer.reportChannel = client.channels.cache.get('827075339980111925')
         /*========================<----------------->===========================*/
-  client.user.setActivity(`m.help | ${client.guilds.cache.size} servers!`, {
-    type: "LISTENING",// sets the activity
-  });
-// logs info about the currently logged in client
-  console.log(`${client.user.username} is Online! ID: ${client.user.id}`);
-  client.manager.init(client.user.id)
-}); 
+        client.user.setActivity(`m.help | ${client.guilds.cache.size} servers!`, {
+          type: "LISTENING",// sets the activity
+        });
+        // logs info about the currently logged in client
+        console.log(`${client.user.username} is Online! ID: ${client.user.id}`);
+        client.manager.init(client.user.id)
+      }); 
 
 ["command"].forEach((handler) => {
   require(`./handlers/${handler}`)(client);
