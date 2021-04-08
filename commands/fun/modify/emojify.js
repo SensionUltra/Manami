@@ -1,6 +1,4 @@
-const Discord = require('discord.js');
-
-
+const embed = require('@auto/embeds')
 module.exports = {
         name: 'emojify',
         description: 'Emojifies your text message',
@@ -44,7 +42,7 @@ module.exports = {
 		}).join('');
 
 		if(emojified.length > 2000) {
-			return message.channel.send(`${client.emotes.error} The emojified message exceeds 2000 characters.`);
+			return embed.error('Charicter Overflow', `The emojified message exceeds 2000 characters.`, message);
 		}
 
 		message.channel.send(emojified);
