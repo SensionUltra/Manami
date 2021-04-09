@@ -1,5 +1,5 @@
 require('module-alias/register')
-const guild = require('@settings/guild')
+const guildDoc = require('@settings/guild')
 const clientDoc = require('@client/client')
 const Discord = require("discord.js");
 const { token, mongooseString, lavaPass, host } = require("./token.json")
@@ -25,19 +25,9 @@ const Cooldown = new Discord.Collection();
 
 client.on("ready", async () => {
   if (client.user.id == 828753390216806410) config.prefix = 'd.'
-  allPrefixs = await guild.getAllPrefixes()
-  client.guilds.cache.forEach(guild => {
-    allPrefixs.forEach(obj => {
-      if (obj.guildId == guild.id) {
-        guild.prefix = obj.prefix
-      }
-    })
-    if (!guild.prefix) guild.prefix = config.prefix
-})
-        /*========================<-Un=Comment=This->===========================*/
-        // client.supportServer = client.guilds.cache.get('826614093695811594')
-        // client.supportServer.reportChannel = client.channels.cache.get('827075339980111925')
-        /*========================<----------------->===========================*/
+        cachePrefixes()
+        client.supportServer = client.guilds.cache.get('826614093695811594')
+        client.supportServer.reportChannel = client.channels.cache.get('827075339980111925')
         client.user.setActivity(`m.help | ${client.guilds.cache.size} servers!`, {
           type: "LISTENING",// sets the activity
         });
@@ -49,6 +39,32 @@ client.on("ready", async () => {
 ["command"].forEach((handler) => {
   require(`./handlers/${handler}`)(client);
 });
+
+cachePrefixes = async (guildId) => {
+  if (guildId) {
+    const prefix = await guildDoc.getPrefix(guildId)
+    const guild = client.guilds.cache.get(guildId)
+    if (prefix) {
+      guild.prefix = prefix
+    } else {
+      guild.prefix = config.prefix
+    }
+  } else {
+    allPrefixs = await guildDoc.getAllPrefixes()
+    client.guilds.cache.forEach(guild => {
+      allPrefixs.forEach(obj => {
+        if (obj.guildId == guild.id) {
+          guild.prefix = obj.prefix
+        }
+      })
+      if (!guild.prefix) guild.prefix = config.prefix
+    })
+  }
+}
+
+client.on('guildCreate', (guild) => {
+  cachePrefixes(guild.id)
+})
 
 client.manager = new Manager({
     nodes: [{
@@ -78,10 +94,19 @@ send(id, payload) {
   });
 
   client.on('guildMemberAdd', async (member) => {
-    const welcome = await guild.getWelcome(member.guild.id)
+    const welcome = await guildDoc.getWelcome(member.guild.id)
+    if (!welcome.message) return;
     const message = welcome.message.replace(`<@>`, `<@${member.id}>`)
     const channel = member.guild.channels.cache.get(welcome.channelId)
     channel.send(message)
+})
+
+client.on('guildMemberRemove', async (member) => {
+  const leave = await guildDoc.getLeave(member.guild.id)
+  if (!leave.message) return;
+  const message = leave.message.replace(`<@>`, `<@${member.id}>`)
+  const channel = member.guild.channels.cache.get(leave.channelId)
+  channel.send(message)
 })
 
 client.on("message", async message => {
