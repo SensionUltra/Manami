@@ -21,6 +21,16 @@ const guildSchema = mongoose.Schema({
             type: String,
             required: false
         }
+    },
+    leave: {
+        channelId: {
+            type: String,
+            required: false
+        },
+        message: {
+            type: String,
+            required: false
+        }
     }
 })
 

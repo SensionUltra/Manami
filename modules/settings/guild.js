@@ -6,6 +6,20 @@ const { MessageAttachment } = require('discord.js')
 
 module.exports = (client) => {}
 
+module.exports.getAllPrefixes = async () => {
+    return await mongo().then(async (mongoose) => {
+        try {
+            console.log('Running FindOneAndUpdate()')
+            const result = await guildSchema.find({
+                __v: 0
+            })
+            return result
+        } finally {
+            mongoose.connection.close()
+        }
+    })
+}
+
 module.exports.getPrefix = async (guildId) => {
     return await mongo().then(async (mongoose) => {
         try {
@@ -63,7 +77,7 @@ module.exports.setWelcome = async (guildId, channelId, message) => {
                 new: true
             })
 
-            return result.prefix
+            return result.welcome.message
         } finally {
             mongoose.connection.close()
         }
@@ -85,14 +99,41 @@ module.exports.getWelcome = async (guildId) => {
     })
 }
 
-module.exports.getAllPrefixes = async () => {
+module.exports.setLeave = async (guildId, channelId, message) => {
     return await mongo().then(async (mongoose) => {
         try {
             console.log('Running FindOneAndUpdate()')
-            const result = await guildSchema.find({
-                __v: 0
+            const result = await guildSchema.findOneAndUpdate({
+                guildId,
+            }, {
+                guildId,
+                $set: {
+                    leave: {
+                        channelId,
+                        message,
+                    }
+                }
+            }, {
+                upsert: true,
+                new: true
             })
-            return result
+
+            return result.leave.message
+        } finally {
+            mongoose.connection.close()
+        }
+    })
+}
+
+module.exports.getLeave = async (guildId) => {
+    return await mongo().then(async (mongoose) => {
+        try {
+            console.log('Running FindOne()')
+            const result = await guildSchema.findOne({
+                guildId,
+})
+
+            return result?.leave
         } finally {
             mongoose.connection.close()
         }
