@@ -66,7 +66,6 @@ module.exports = {
         }
         if (!command) {
           command = client.categories.get(args[0].toLowerCase())
-          console.log(command)
           if (!command) {
             const embed = new MessageEmbed()
               .setTitle(`Invalid command! Use \`${prefix}help\` for all of my commands!`)
