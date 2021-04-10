@@ -83,7 +83,6 @@ module.exports = {
 
       const embed = new MessageEmbed()
         .setTitle("Command Details:")
-        .addField("PREFIX:", `\`${prefix}\``)
         .addField(
           "COMMAND:",
           command.name ? `\`${command.name}\`` : "No name for this command."
