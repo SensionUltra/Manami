@@ -2,18 +2,17 @@ require('module-alias/register')
 const guildDoc = require('@settings/guild')
 const clientDoc = require('@client/client')
 const Discord = require("discord.js");
-const { token, mongooseString, lavaPass, host } = require("./token.json")
+const { token, mongooseString } = require("./token.json")
 const config = require("./config.json")
 const ms = require('ms')
-const { Manager } = require('erela.js')
 const client = new Discord.Client({
   messageCacheMaxSize: 1000,
     messageCacheLifetime: 43200,
   messageSweepInterval: 3600,
   partials: ["MESSAGE", "CHANNEL", "REACTION"]});
-const mongoose = require('mongoose')
 const Kitsu = require('kitsu.js')
 client.kitsu = new Kitsu();
+const escapeRegex = str => str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
 
 let allPrefixs;
@@ -66,33 +65,6 @@ client.on('guildCreate', (guild) => {
   cachePrefixes(guild.id)
 })
 
-client.manager = new Manager({
-    nodes: [{
-      host: host,
-      port: 2293,
-      password: lavaPass
-    },
-],
-send(id, payload) {
-  const guild = client.guilds.cache.get(id);
-  if (guild) guild.shard.send(payload)
-},
-})
-  .on("nodeConnect", node => console.log(`Node ${node.options.identifier} connected`))
-  .on("nodeError", (node, error) => console.log(`Node ${node.options.identifier} had an error: ${error.message}`))
-  .on("trackStart", (player, track) => {
-    client.channels.cache
-      .get(player.textChannel)
-      .send(`Now playing: ${track.title}`);
-  })
-  .on("queueEnd", (player) => {
-    client.channels.cache
-      .get(player.textChannel)
-      .send("Queue has ended.");
-
-    player.destroy();
-  });
-
   client.on('guildMemberAdd', async (member) => {
     const welcome = await guildDoc.getWelcome(member.guild.id)
     if (!welcome.message) return;
@@ -111,11 +83,14 @@ client.on('guildMemberRemove', async (member) => {
 
 client.on("message", async message => {
   if(message.author.bot) return;
+  if(message.mentions.users.first() === client.user) {
+    message.channel.send("PIng!")
+  }
     if(!message.guild) return;
     if(!message.content.startsWith(message.guild.prefix)) return;
     
        if (!message.member) message.member = await message.guild.fetchMember(message);
-  
+      
       const args = message.content.slice(message.guild.prefix.length).trim().split(/ +/g);
       const cmd = args.shift().toLowerCase();
       if (cmd.length === 0) return;
