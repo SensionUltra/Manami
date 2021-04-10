@@ -95,7 +95,7 @@ send(id, payload) {
 
   client.on('guildMemberAdd', async (member) => {
     const welcome = await guildDoc.getWelcome(member.guild.id)
-    if (!welcome.message) return;
+    if (!welcome?.message) return;
     const message = welcome.message.replace(`<@>`, `<@${member.id}>`)
     const channel = member.guild.channels.cache.get(welcome.channelId)
     channel.send(message)
@@ -103,7 +103,7 @@ send(id, payload) {
 
 client.on('guildMemberRemove', async (member) => {
   const leave = await guildDoc.getLeave(member.guild.id)
-  if (!leave.message) return;
+  if (!leave?.message) return;
   const message = leave.message.replace(`<@>`, `<@${member.id}>`)
   const channel = member.guild.channels.cache.get(leave.channelId)
   channel.send(message)
