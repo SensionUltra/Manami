@@ -1,4 +1,4 @@
-const { getPrefix } = require('../modules/settings/guild');
+const { getPrefix } = require('@settings/guild');
 module.exports = {
     name: 'guildCreate',
     run: async(guild, client) => {

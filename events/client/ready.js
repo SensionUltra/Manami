@@ -1,4 +1,4 @@
-const { getAllPrefixes } = require('../modules/settings/guild');
+const { getAllPrefixes } = require('@settings/guild');
 const config = require('@root/config.json');
 const ascii = require('ascii-table');
 let readyTable = new ascii('Client');

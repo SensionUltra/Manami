@@ -1,4 +1,4 @@
-const config = require("../config.json")
+const config = require("@root/config.json")
 const ms = require('ms')
 const Discord = require('discord.js')
 const Cooldown = new Discord.Collection();
