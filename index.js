@@ -1,10 +1,11 @@
 require('module-alias/register')
+require('dotenv').config()
 const guildDoc = require('@settings/guild')
 const clientDoc = require('@client/client')
 const Discord = require("discord.js");
-const { token, mongooseString } = require("./token.json")
 const config = require("./config.json")
 const ms = require('ms')
+const colors = require("colors");
 const client = new Discord.Client({
   messageCacheMaxSize: 1000,
     messageCacheLifetime: 43200,
@@ -12,7 +13,6 @@ const client = new Discord.Client({
   partials: ["MESSAGE", "CHANNEL", "REACTION"]});
 const Kitsu = require('kitsu.js')
 client.kitsu = new Kitsu();
-const escapeRegex = str => str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
 
 let allPrefixs;
@@ -22,20 +22,7 @@ client.aliases = new Discord.Collection();
 client.categories = new Discord.Collection();
 const Cooldown = new Discord.Collection();
 
-client.on("ready", async () => {
-  if (client.user.id == 828753390216806410) config.prefix = 'd.'
-        cachePrefixes()
-        client.supportServer = client.guilds.cache.get('826614093695811594')
-        client.supportServer.reportChannel = client.channels.cache.get('827075339980111925')
-        client.user.setActivity(`m.help | ${client.guilds.cache.size} servers!`, {
-          type: "LISTENING",// sets the activity
-        });
-        // logs info about the currently logged in client
-        console.log(`${client.user.username} is Online! ID: ${client.user.id}`);
-        client.manager.init(client.user.id)
-      }); 
-
-["command"].forEach((handler) => {
+["command", "events"].forEach((handler) => {
   require(`./handlers/${handler}`)(client);
 });
 
@@ -67,7 +54,7 @@ client.on('guildCreate', (guild) => {
 
   client.on('guildMemberAdd', async (member) => {
     const welcome = await guildDoc.getWelcome(member.guild.id)
-    if (!welcome?.message) return;
+    if (!welcome.message) return;
     const message = welcome.message.replace(`<@>`, `<@${member.id}>`)
     const channel = member.guild.channels.cache.get(welcome.channelId)
     channel.send(message)
@@ -75,7 +62,7 @@ client.on('guildCreate', (guild) => {
 
 client.on('guildMemberRemove', async (member) => {
   const leave = await guildDoc.getLeave(member.guild.id)
-  if (!leave?.message) return;
+  if (!leave.message) return;
   const message = leave.message.replace(`<@>`, `<@${member.id}>`)
   const channel = member.guild.channels.cache.get(leave.channelId)
   channel.send(message)
@@ -83,9 +70,6 @@ client.on('guildMemberRemove', async (member) => {
 
 client.on("message", async message => {
   if(message.author.bot) return;
-  if(message.mentions.users.first() === client.user) {
-    message.channel.send("PIng!")
-  }
     if(!message.guild) return;
     if(!message.content.startsWith(message.guild.prefix)) return;
     
@@ -119,6 +103,5 @@ client.on("message", async message => {
         }
     }
    });
-   client.on("raw", (d) => client.manager.updateVoiceState(d));
 
-client.login(token);
+client.login(process.env.BOTTOKEN);
