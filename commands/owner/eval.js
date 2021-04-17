@@ -90,6 +90,8 @@ function clean(string) {
     if (typeof text === "string") {
         return string.replace(/`/g, "`" + String.fromCharCode(8203))
         .replace(/@/g, "@" + String.fromCharCode(8203))
+        .replace(process.env.BOTTOKEN, 'ODIyOTU4MjAwNTE2--NO--zU3.--TOKEN--.L7VV3F--4U--MrBjRSSGomtzytmw')
+        .replace(process.env.DEVBOTTOKEN, 'ODIyOTU4MjAwNTE2--NO--zU3.--TOKEN--.L7VV3F--4U--MrBjRSSGomtzytmw')
     } else {
         return string;
     }
