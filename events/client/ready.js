@@ -31,6 +31,8 @@ module.exports = {
 				const fileName = file.split('.').shift()
 				client.modules.set(fileName, pull)
 			})
+
+		client.user.setActivity(`m.help | In ${client.guilds.cache.size} Servers! and ${client.users.cache.size} Users!`, { type: 'LISTENING'})
 		})
 	},
 };
