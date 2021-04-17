@@ -14,6 +14,12 @@ module.exports = {
   description: "Shows information about the Bot",
   cooldown: 3000,
   run: async (client, message, args) => {
+    grammar = (amount, string, strings) => {
+      let properString = amount == 1 ? string : strings;
+      return properString;
+    };
+
+
     const days = Math.floor(client.uptime / 86400000);
     const hours = Math.floor(client.uptime / 3600000) % 24; // 1 Day = 24 Hours
     const minutes = Math.floor(client.uptime / 60000) % 60; // 1 Hour = 60 Minutes
@@ -50,7 +56,7 @@ module.exports = {
         .addField("Name:", `${client.user.tag}`, true)
         .addField("ID:", `${client.user.id}`, true)
         .addField("Status", `${status[client.presence.status]}`, true)
-        .addField("Uptime:", `\`${days}\` days \`${hours}\` hrs \`${minutes}\` mins \`${seconds}\` secs`, true)
+        .addField("Uptime:", `\`${days}\` ${grammar(days, 'day', 'days')} \`${hours}\` ${grammar(hours, 'hour', 'hours')} \`${minutes}\` ${grammar(minutes, 'minute', 'minutes')} \`${seconds}\` ${grammar(seconds, 'second', 'seconds')}`, true)
         .addField("Servers:", `${client.guilds.cache.size}`, true)
         .addField("Users:", `${client.users.cache.size}`, true)
         .addField("Channels:", `${client.channels.cache.size.toLocaleString()}`, true)
