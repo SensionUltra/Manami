@@ -3,23 +3,27 @@ const { post } =  require('node-superfetch')
 const SourceBin = require('sourcebin-wrapper')
 module.exports = {
 name: "eval",
+aliases: ['e'],
 owner: true,
 description: "basically a very dangerous cmd",
 run: async(client, message, args) => {
     const embed = new MessageEmbed()
-    .addField("📥 Input", "```js\n" + args.join(" ") + "```");
-
+    
     try {
-        const code = args.join(" ");
+        let code = args.join(' ');
         if (!code) return message.channel.send("Please provide some code to evaluate")
+        if (!code) return message.channel.send('Please provide some code to evaluate');
+        code = code.replace(/(^`{3}(\w+)?|`{3}$)/g, '');
+        code = code.replace(/[“”]/g, '"').replace(/[‘’]/g, "'");
+        embed.addField("📥 Input", "```js\n" + code + "```");
         let evaled;
         //If someone attempts to get the bot token
-        if (code.includes(`BOTTOKEN`) || code.includes(`TOKEN`) || code.includes("process.env")) {
+        if (code.includes(`BOTTOKEN`) || code.includes(`TOKEN`) || code.includes("process.env") || code.includes('client.token')) {
             evaled = "No, stop, what are you gonna do with it?"
         } else {
             evaled = eval(code)
         }
-
+        
         if (typeof evaled !== "string") evaled = require("util").inspect(evaled, {depth: 0});
 
         let output = clean(evaled);
@@ -38,7 +42,7 @@ run: async(client, message, args) => {
                 .then((result) => {
                     const url = result.url;
                     const embed2 = new MessageEmbed()
-                    .addField("📥 Input", "```js\n" + args.join(" ") + "```")
+                    .addField("📥 Input", "```js\n" + code + "```")
                     .addField("📤 Output", "```js\n" + url + "```").setColor(0x7289DA)
 
                     message.channel.send(embed2)
@@ -71,7 +75,7 @@ run: async(client, message, args) => {
                 .then((result) => {
                     const url = result.url;
                     const embed3 = new MessageEmbed()
-                    .addField("📥 Input", "```js\n" + args.join(" ") + "```")
+                    .addField("📥 Input", "```js\n" + code + "```")
                     .addField("📤 Output", "```js\n" + url + "```").setColor(0x7289DA)
 
                     message.channel.send(embed3)
@@ -90,8 +94,6 @@ function clean(string) {
     if (typeof text === "string") {
         return string.replace(/`/g, "`" + String.fromCharCode(8203))
         .replace(/@/g, "@" + String.fromCharCode(8203))
-        .replace(process.env.BOTTOKEN, 'ODIyOTU4MjAwNTE2--NO--zU3.--TOKEN--.L7VV3F--4U--MrBjRSSGomtzytmw')
-        .replace(process.env.DEVBOTTOKEN, 'ODIyOTU4MjAwNTE2--NO--zU3.--TOKEN--.L7VV3F--4U--MrBjRSSGomtzytmw')
     } else {
         return string;
     }
