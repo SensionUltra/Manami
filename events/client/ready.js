@@ -32,6 +32,8 @@ if (client.user.id == 828753390216806410) config.prefix = 'd.'
 				const fileName = file.split('.').shift()
 				client.modules.set(fileName, pull)
 			})
+
+		client.user.setActivity(`m.help | In ${client.guilds.cache.size} Servers! and ${client.users.cache.size} Users!`, { type: 'LISTENING'})
 		})
 	},
 };
