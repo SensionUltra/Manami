@@ -4,7 +4,7 @@ aliases: ["giverole"],
 description: "give a role to a member",
 run: (client, message, args) => {
     if(!message.member.hasPermission("MANAGE_ROLES")) {
-        message.reply("You are missing the \`\`MANAGE_ROLES\`\` Permission!")
+        message.reply("You are missing the \`MANAGE_ROLES\` Permission!")
         return
     }
     const target = message.mentions.users.first() || client.users.cache.find(user => user.username.toLowerCase() === args.join(" ").toLowerCase()) || client.users.cache.get(args[0])

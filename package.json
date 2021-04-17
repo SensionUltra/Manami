@@ -41,6 +41,7 @@
     "@auto": "./modules/auto",
     "@misc": "./modules/misc",
     "@settings": "./modules/settings",
+    "@modules": "./modules",
     "@client": "./modules/client"
   }
 }

@@ -1,6 +1,7 @@
 const { getAllPrefixes } = require('@settings/guild');
 const config = require('@root/config.json');
 const ascii = require('ascii-table');
+const { Collection } = require('discord.js');
 let readyTable = new ascii('Client');
 readyTable.setHeading('Info', 'status');
 module.exports = {
@@ -22,5 +23,14 @@ module.exports = {
 			});
 			if (!guild.prefix) guild.prefix = config.prefix;
 		});
+		const fs = require('fs')
+		client.modules = new Collection()
+		fs.readdirSync('./modules/').forEach(folder => {
+			fs.readdirSync(`./modules/${folder}`).forEach(file => {
+				const pull = require(`../../modules/${folder}/${file}`)
+				const fileName = file.split('.').shift()
+				client.modules.set(fileName, pull)
+			})
+		})
 	},
 };
