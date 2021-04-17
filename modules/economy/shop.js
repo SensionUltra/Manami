@@ -1,17 +1,10 @@
 const mongo = require('@misc/mongo')
 const profileSchema = require('@schemas/profileSchema')
-
-
 const coinsCache = {}
-
-const { MessageAttachment } = require('discord.js')
-
-module.exports = (client) => {}
 
 module.exports.buyItem = async (guildId, userId, item) => {
     return await mongo().then(async (mongoose) => {
         try {
-            console.log('Running FindOneAndUpdate()')
             const coins = (- + item.price)
             const result = await profileSchema.findOneAndUpdate({
                 guildId,
@@ -42,14 +35,11 @@ module.exports.buyItem = async (guildId, userId, item) => {
 module.exports.getItems = async (guildId, userId) => {
     return await mongo().then(async mongoose => {
         try {
-            console.log('running findone()')
-
             const result = await profileSchema.findOne({
                 guildId,
                 userId
             })
 
-            console.log('RESULT:', result)
             const items = result?.items
             return items
         } finally {

@@ -2,14 +2,10 @@ const mongo = require('@misc/mongo')
 const guildSchema = require('@schemas/guildSchema')
 
 
-const { MessageAttachment } = require('discord.js')
-
-module.exports = (client) => {}
 
 module.exports.getAllPrefixes = async () => {
     return await mongo().then(async (mongoose) => {
         try {
-            console.log('Running FindOneAndUpdate()')
             const result = await guildSchema.find({
                 __v: 0
             })
@@ -23,7 +19,6 @@ module.exports.getAllPrefixes = async () => {
 module.exports.getPrefix = async (guildId) => {
     return await mongo().then(async (mongoose) => {
         try {
-            console.log('Running FindOneAndUpdate()')
             const result = await guildSchema.findOne({
                 guildId,
 })
@@ -38,7 +33,6 @@ module.exports.getPrefix = async (guildId) => {
 module.exports.setPrefix = async (guildId, prefix) => {
     return await mongo().then(async (mongoose) => {
         try {
-            console.log('Running FindOneAndUpdate()')
             const result = await guildSchema.findOneAndUpdate({
                 guildId,
             }, {
@@ -61,7 +55,6 @@ module.exports.setPrefix = async (guildId, prefix) => {
 module.exports.setWelcome = async (guildId, channelId, message) => {
     return await mongo().then(async (mongoose) => {
         try {
-            console.log('Running FindOneAndUpdate()')
             const result = await guildSchema.findOneAndUpdate({
                 guildId,
             }, {
@@ -87,7 +80,6 @@ module.exports.setWelcome = async (guildId, channelId, message) => {
 module.exports.getWelcome = async (guildId) => {
     return await mongo().then(async (mongoose) => {
         try {
-            console.log('Running FindOne()')
             const result = await guildSchema.findOne({
                 guildId,
 })
@@ -102,7 +94,6 @@ module.exports.getWelcome = async (guildId) => {
 module.exports.setLeave = async (guildId, channelId, message) => {
     return await mongo().then(async (mongoose) => {
         try {
-            console.log('Running FindOneAndUpdate()')
             const result = await guildSchema.findOneAndUpdate({
                 guildId,
             }, {
@@ -128,7 +119,6 @@ module.exports.setLeave = async (guildId, channelId, message) => {
 module.exports.getLeave = async (guildId) => {
     return await mongo().then(async (mongoose) => {
         try {
-            console.log('Running FindOne()')
             const result = await guildSchema.findOne({
                 guildId,
 })
