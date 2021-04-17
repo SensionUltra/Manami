@@ -1,12 +1,12 @@
 {
   "name": "manami",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "MultiPurpose Bot Made By Awoken and Zac",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Awoken, ScienceyZac",
   "license": "ISC",
   "dependencies": {
     "@lavacord/discord.js": "0.0.7",
@@ -15,8 +15,10 @@
     "animequote": "^1.1.1",
     "ascii-table": "0.0.9",
     "colors": "^1.4.0",
+    "cpu-stat": "^2.0.1",
     "discord-image-generation": "^1.4.7",
     "discord.js": "^12.5.1",
+    "discord.js-pagination": "^1.0.3",
     "dotenv": "^8.2.0",
     "erela.js": "^2.3.3",
     "erela.js-spotify": "^1.2.0",

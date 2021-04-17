@@ -1,3 +1,4 @@
+const fs = require('fs')
 const { getAllPrefixes } = require('@settings/guild');
 const config = require('@root/config.json');
 const ascii = require('ascii-table');
@@ -23,9 +24,9 @@ module.exports = {
 			});
 			if (!guild.prefix) guild.prefix = config.prefix;
 		});
-		const fs = require('fs')
 		client.modules = new Collection()
-		fs.readdirSync('./modules/').forEach(folder => {
+		client.package = require('@root/package.json')
+		fs.readdirSync('./modules/').forEach(folder => { //  add all the modules to the client object as a collection
 			fs.readdirSync(`./modules/${folder}`).forEach(file => {
 				const pull = require(`../../modules/${folder}/${file}`)
 				const fileName = file.split('.').shift()
