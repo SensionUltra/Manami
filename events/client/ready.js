@@ -14,7 +14,7 @@ module.exports = {
 			readyTable.addRow('Commands:', `${client.commands.size - 1} Loaded`),
 			readyTable.addRow('Channels:', client.channels.cache.size + ' Cached');
 		console.log(readyTable.toString());
-
+if (client.user.id == 828753390216806410) config.prefix = 'd.'
 		allPrefixs = await getAllPrefixes();
 		client.guilds.cache.forEach((guild) => {
 			allPrefixs.forEach((obj) => {
