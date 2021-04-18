@@ -35,8 +35,8 @@ const fieldDescription = splitChange
 })
 let info = [];
 if (errors) info.push(`${errors} fixed ${grammar(errors, 'error', 'errors')}`)
-if (errors) info.push(`${updatedCmds} updated ${grammar(updatedCmds, 'command', 'commands')}`)
-if (errors) info.push(`${newCmds} new ${grammar(newCmds, 'command', 'commands')}`)
+if (updatedCmds) info.push(`${updatedCmds} updated ${grammar(updatedCmds, 'command', 'commands')}`)
+if (newCmds) info.push(`${newCmds} new ${grammar(newCmds, 'command', 'commands')}`)
 
 const changeEmbed = new MessageEmbed()
 .setTitle(`Manami v${version}`)
@@ -58,6 +58,8 @@ message.channel.send(changeEmbed).then(() => {
             })
             embed.succes('Succesfully Sent The Change-Log', `Succesfully sent the change-log for Manami v${version}`, message)
         }
+    }).catch(err => {
+        embed.error('Timeout', 'You took to long to reply!', message)
     })
 })
 }
