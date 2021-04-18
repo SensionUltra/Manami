@@ -13,6 +13,19 @@ module.exports.error = (title, errMessage, message, color) => {
     return message.channel.send(errorEmbed)
 }
 
+module.exports.embed = (title, embedMessage, message, color) => {
+    if (!color) {
+        color = null
+    }
+    const embed = new MessageEmbed()
+    .setTitle(title)
+    .setDescription(embedMessage)
+    .setColor(color)
+    .setTimestamp()
+    
+    return message.channel.send(embed)
+}
+
 module.exports.succes = (title, succesMessage, message, color) => {
     if (!color) {
         color = '#00ff00' 
