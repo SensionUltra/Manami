@@ -14,6 +14,15 @@ module.exports = {
 			readyTable.addRow('Commands:', `${client.commands.size - 1} Loaded`),
 			readyTable.addRow('Channels:', client.channels.cache.size + ' Cached');
 		console.log(readyTable.toString());
+
+		client.awaitMessage = (channelId, filter, max, time) => {
+			const channel = client.channels.cache.get(channelId)
+			if (!channel) throw new Error(`Invalid Id:\nThe Id ${channelId} is not a valid id`)
+			else {
+				return channel.awaitMessages(filter, { max, time, errors: ['time'] })
+			}
+		}
+
 if (client.user.id == 828753390216806410) config.prefix = 'd.'
 		allPrefixs = await getAllPrefixes();
 		client.guilds.cache.forEach((guild) => {
