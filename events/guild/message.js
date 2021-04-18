@@ -7,11 +7,17 @@ module.exports = {
     run: async(message, client) => {
         if(message.author.bot) return;
         if(!message.guild) return;
-        if(!message.content.startsWith(message.guild.prefix)) return;
-        
+        if(!message.content.startsWith(message.guild.prefix) && !message.content.startsWith('d.')) return;
+        let prefixLength;
+
+        if (client.user.id == 828753390216806410 && message.content.startsWith('d.')) {
+          prefixLength = 2
+        } else {
+          prefixLength = message.guild.prefix.length
+        }
            if (!message.member) message.member = await message.guild.fetchMember(message);
           
-          const args = message.content.slice(message.guild.prefix.length).trim().split(/ +/g);
+          const args = message.content.slice(prefixLength).trim().split(/ +/g);
           const cmd = args.shift().toLowerCase();
           if (cmd.length === 0) return;
           
