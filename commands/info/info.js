@@ -44,7 +44,7 @@ module.exports = {
       .setFooter(`Requested By ${message.author.tag}`, message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
 
-      message.channel.send(embed)
+      message.reply(embed)
       return;
 
     }
@@ -65,7 +65,7 @@ module.exports = {
         .addField("Library", "[Discord.js](https://discord.js.org/#/)")
 
 
-        message.channel.send(embed)
+        message.reply(embed)
         message.channel.stopTyping()
         break;
       case "specs":
@@ -75,7 +75,7 @@ module.exports = {
         .addField("CPU", `**${cpuStat.totalCores()}** - Cores\n**${os.cpus()[0].model}** - Model\n**${os.cpus()[0].speed}MHz** - Speed`, true)
         .addField("Memory", `**${formatBytes(os.totalmem)}** - Total \n**${formatBytes(os.freemem())}** - Free\n**${formatBytes(os.totalmem - os.freemem)}** - Used`,)
         .addField("Operating System", `**${os.type}/${os.platform}** - OS\n**${os.arch}** - Arch\n**${os.version}** - Version\n**${os.release}** - Model\n**${process.pid}** - Process ID\n**${osDays}** days **${osHours}** hrs **${osMinutes}** mins **${osSeconds}** secs - Uptime`)
-        message.channel.send(embed2)
+        message.reply(embed2)
         message.channel.stopTyping()
         break;
     }

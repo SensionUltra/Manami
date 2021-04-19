@@ -3,7 +3,7 @@ module.exports = {
     description: "see the ping!",
     cooldown: 3000,
     run: async (client, message, args) => {
-        const msg = await message.channel.send('Pinging...')
+        const msg = await message.reply('Pinging...')
 
         const latency = msg.createdTimestamp - message.createdTimestamp
 

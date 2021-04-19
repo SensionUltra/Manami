@@ -8,6 +8,6 @@ const inviteEmbed = new MessageEmbed()
 .setTitle('Invite Manami Here!')
 .setURL('https://discord.com/oauth2/authorize?client_id=817653964161548289&scope=bot&permissions=8');
 
-message.channel.send(inviteEmbed)
+message.reply(inviteEmbed)
 }
 }

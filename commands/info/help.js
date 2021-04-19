@@ -111,7 +111,7 @@ module.exports = {
         )
         .setTimestamp()
         .setColor(roleColor);
-      return message.channel.send(embed);
+      return message.reply(embed);
     }
   },
 };
