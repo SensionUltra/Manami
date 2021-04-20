@@ -6,6 +6,7 @@ aliases: ["setupwelcome", "setwelcome"],
 description: "Setup the welcome channel for your server",
 cooldown: 60000,
 run: (client, message, args) => {
+    if(!message.member.hasPermission("MANAGE_CHANNELS")) return embed.error('Missing Permissions', 'You need the \`\`MANAGE_CHANNELS\`\` Permission', message)
     let options = [
         {name: '{member}', value: 'mentions the joined user'},
         {name: '{membercount}', value: 'the member count of the server for when the user joines'},

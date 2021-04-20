@@ -5,6 +5,8 @@ name: "set-leave",
 description: "set the leave channel and message",
 aliases: ['setleave'],
 run: (client, message, args) => {
+
+    if(!message.member.hasPermission("MANAGE_CHANNELS")) return embed.error('Missing Permissions', 'You need the \`\`MANAGE_CHANNELS\`\` Permission', message)
     let options = [
         {name: '{member}', value: 'the tag of the left user'},
         {name: '{membercount}', value: 'the member count of the server for when the user leaves'},
