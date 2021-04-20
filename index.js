@@ -10,9 +10,6 @@ const client = new Discord.Client({
 const Kitsu = require('kitsu.js')
 client.kitsu = new Kitsu();
 
-
-let allPrefixs;
-
 client.commands = new Discord.Collection();
 client.aliases = new Discord.Collection();
 client.categories = new Discord.Collection();
