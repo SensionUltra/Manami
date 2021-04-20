@@ -116,6 +116,50 @@ module.exports.setLeave = async (guildId, channelId, message) => {
     })
 }
 
+module.exports.resetLeave = async (guildId) => {
+    return await mongo().then(async (mongoose) => {
+        try {
+            const result = await guildSchema.findOneAndUpdate({
+                guildId,
+            }, {
+                guildId,
+                $set: {
+                    leave: false
+                }
+            }, {
+                upsert: true,
+                new: true
+            })
+
+            return false
+        } finally {
+            mongoose.connection.close()
+        }
+    })
+}
+
+module.exports.resetWelcome = async (guildId) => {
+    return await mongo().then(async (mongoose) => {
+        try {
+            const result = await guildSchema.findOneAndUpdate({
+                guildId,
+            }, {
+                guildId,
+                $set: {
+                    welcome: false
+                }
+            }, {
+                upsert: true,
+                new: true
+            })
+
+            return true
+        } finally {
+            mongoose.connection.close()
+        }
+    })
+}
+
 module.exports.getLeave = async (guildId) => {
     return await mongo().then(async (mongoose) => {
         try {
