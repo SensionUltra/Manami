@@ -8,6 +8,24 @@ readyTable.setHeading('Info', 'status');
 module.exports = {
 	name: 'ready',
 	run: async (client) => {
+
+		/*    will work on tomorrow
+		
+		client.getIdFromMentions = (string) => {
+			// The id is the first and only match found by the RegEx.
+			const matches = string.match(/^<#(\d+)>$/g);
+		  console.log(matches)
+			// If supplied variable was not a mention, matches will be null instead of an array.
+			if (!matches) return;
+		  
+			// However, the first element in the matches array will be the entire mention, not just the ID,
+			// so use index 1.
+			const id = matches[1];
+		  
+			return client.users.cache.get(id);
+		  }
+
+		  */
 		readyTable.addRow('Name:', client.user.username),
 			readyTable.addRow('Servers:', client.guilds.cache.size + ' Cached'),
 			readyTable.addRow('Users:', client.users.cache.size + ' Cached'),

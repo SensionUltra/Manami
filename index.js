@@ -13,9 +13,6 @@ const Kitsu = require("kitsu.js");
 client.kitsu = new Kitsu();
 const { Manager } = require("erela.js");
 
-
-let allPrefixs;
-
 client.commands = new Discord.Collection();
 client.aliases = new Discord.Collection();
 client.categories = new Discord.Collection();
