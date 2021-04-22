@@ -11,7 +11,7 @@ run: async(client, message, args) => {
 const itemsList = []
 const itemsAmount = {}
 let itemsProcessed = 0
-    if (!items.length) return embed.error('No Items', 'you do not have any items', message)
+    if (!items || !items.length) return embed.error('No Items', 'you do not have any items', message)
 items.forEach(item => {
     if (itemsList.some(i=>i.name == item.name)) return
     if (!itemsAmount[`${item.name}-${item.description}`]) itemsAmount[`${item.name}-${item.description}`] = 0
