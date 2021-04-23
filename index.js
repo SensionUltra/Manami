@@ -24,7 +24,7 @@ fs.readdirSync("./handlers").forEach((handler) => {
 client.manager = new Manager({
   nodes: [
     {
-      host: process.env.HOST,
+      host: "manamibot.xyz",
       port: 2293,
       password: process.env.LAVAPASS,
     },
@@ -45,10 +45,11 @@ client.manager = new Manager({
   )
   .on("trackStart", (player, track) => {
     const nowPlayEmbed = new Discord.MessageEmbed()
-      .setTitle("`🎶` Playing New Song")
-      .setDescription(`Playing - **[${track.title}](${track.uri})**`)
-      .addField("`⌛` Duration", `${format(track.duration)}`)
-      .setColor("RANDOM");
+      .setTitle("`🎶` Playing New Song!") 
+    .setDescription(`Added - **[${track.title}](${track.uri})**`)
+    .addField("`⌛` Duration", `${format(track.duration)}`, true)
+    .addField("`📖` Author", `${track.author}`, true)
+    .addField("`🔰` Queue Length", `${player.queue.size}`, true)
 
     client.channels.cache.get(player.textChannel).send(nowPlayEmbed);
   })

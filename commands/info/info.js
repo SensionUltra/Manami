@@ -1,12 +1,10 @@
 const { MessageEmbed } = require("discord.js");
-const paginationEmbed = require("discord.js-pagination");
 const os = require("os");
 const cpuStat = require("cpu-stat");
 const moment = require("moment");
-const Discord = require("discord.js");
-const { pid } = require("process");
-
 let path = os.platform() === "win32" ? "c:" : "/";
+const fetch = require('node-fetch');
+
 
 module.exports = {
   name: "info",
@@ -40,7 +38,7 @@ module.exports = {
     if(!args[0]) {
       const embed = new MessageEmbed()
       .setTitle("Options")
-      .setDescription("These are the options for the info command\n\n**Bot**\n**Specs**")
+      .setDescription("These are the options for the info command\n\n**Bot**\n**Specs**\n**Lavalink**")
       .setFooter(`Requested By ${message.author.tag}`, message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
 
@@ -63,6 +61,17 @@ module.exports = {
         .addField("Commands", `${client.commands.size - 1}`, true)
         .addField("Creation", `${moment.utc(client.user.createdAt).format('LLLL')}`, true)
         .addField("Library", "[Discord.js](https://discord.js.org/#/)")
+
+
+        fetch(`https://api.voidbots.net/bot/stats/817653964161548289`, {
+    method: "POST",
+    headers: { 
+      Authorization: "VOID_Q2zVsxhWp8CmtZTzQjyqyRVr7WsbDwYxckfB6yHJCvFFASVK",
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({"server_count": client.guilds.cache.size, "shard_count": 0 })
+  }).then(response => response.text())
+.then(console.log).catch(console.error);
 
 
         message.reply(embed)

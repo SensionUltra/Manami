@@ -7,7 +7,7 @@ module.exports = {
     description: "See the current song playing",
     run: (client, message, args) => {
         const player = client.manager.players.get(message.guild.id);
-        if (!player) return message.inlineReply("`❌` There is no music playing.", { allowedMentions: { repliedUser: false }});
+        if (!player) return message.inlineReply("`❌` There is no player in this guild", { allowedMentions: { repliedUser: false }});
 
         const { title, duration } = player.queue.current;
         let progressBar = porgressBar({ currentPositon: player.position > 0 ? player.position : "1", endPositon: duration, width: 15, barStyle: "▬", currentStyle: player.playing ? "🔷" : "🔺"  }, { format:` ${player.playing ? "`⏯`" : "`⏸`"} <bar> ` });
@@ -17,10 +17,6 @@ module.exports = {
         .setDescription(`**${player.playing ? "" : ""} ${title}**\n${progressBar} \`${player.position <= 60000 ? `${format(player.position)}` : format(player.position)} / ${format(duration)}\``)
 
         message.channel.send(embed)
-
-    
-
-        console.log(player.position)
 
     }
 }
