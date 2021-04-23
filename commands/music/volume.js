@@ -15,7 +15,7 @@ run: (client, message, args) => {
     if (!player) return message.inlineReply("`❌` There is no player in this guild", { allowedMentions: { repliedUser: false }});
     if(!userInput) return message.inlineReply("`❌` Enter a number")
     if(isNaN(userInput)) return message.inlineReply("`❌` That is not a number")
-
+    if(userInput > 150) return message.inlineReply("`❌` You may only set volume `1`-`150`")
     player.setVolume(userInput)
 
     message.inlineReply(`\`✅\` Set volume to ${player.volume}`, { allowedMentions: { repliedUser: false }})
