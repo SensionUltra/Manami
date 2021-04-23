@@ -66,7 +66,7 @@ module.exports = {
         fetch(`https://api.voidbots.net/bot/stats/817653964161548289`, {
     method: "POST",
     headers: { 
-      Authorization: "VOID_Q2zVsxhWp8CmtZTzQjyqyRVr7WsbDwYxckfB6yHJCvFFASVK",
+      Authorization: process.env.VOIDTOKEN,
       "Content-Type": "application/json"
     },
     body: JSON.stringify({"server_count": client.guilds.cache.size, "shard_count": 0 })
