@@ -1,5 +1,6 @@
 require("module-alias/register");
 require('@auto/inlineReply')
+const AutoPoster = require('topgg-autoposter')
 require("dotenv").config();
 const fs = require("fs");
 const Discord = require("discord.js");
@@ -12,7 +13,7 @@ const client = new Discord.Client({
 const Kitsu = require("kitsu.js");
 client.kitsu = new Kitsu();
 const { Manager } = require("erela.js");
-
+const ap = AutoPoster(process.env.TOPGGTOKEN, client)
 client.commands = new Discord.Collection();
 client.aliases = new Discord.Collection();
 client.categories = new Discord.Collection();
@@ -21,6 +22,9 @@ fs.readdirSync("./handlers").forEach((handler) => {
   require(`./handlers/${handler}`)(client);
 });
 
+ap.on('posted', () => {
+  console.log('Posted stats to Top.gg!')
+})
 client.manager = new Manager({
   nodes: [
     {

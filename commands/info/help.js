@@ -54,6 +54,26 @@ module.exports = {
           `Requested by ${message.author.tag}`,
           message.author.displayAvatarURL({ dynamic: true })
         )
+        .addField(
+          "Support Server",
+          "[Click Here](https://discord.gg/gt4PacB3A8)",
+          true
+        )
+        .addField(
+          "VoidBots",
+          "[Click Here](https://voidbots.net/bot/817653964161548289/vote)",
+          true
+        )
+        .addField(
+          "Invite Link",
+          "[Click Here](https://discord.com/oauth2/authorize?client_id=817653964161548289&scope=bot&permissions=8)",
+          true
+        )
+        .addField(
+          "Top.gg",
+          "https://top.gg/bot/817653964161548289",
+          true
+        )
         .setImage("https://cdn.discordapp.com/attachments/815599691654889492/828162155978293278/ManamiEz.gif")
         .setTimestamp()
         .setColor(roleColor);
