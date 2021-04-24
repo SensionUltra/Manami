@@ -59,7 +59,8 @@ if (client.user.id == 828753390216806410) config.prefix = 'd.'
 				const fileName = file.split('.').shift()
 				client.modules.set(fileName, pull)
 			})
-
+		client.supportServer = client.guilds.cache.get('826614093695811594')
+		client.supportServer.reportChannel = client.supportServer.channels.cache.get('827075339980111925')
 		client.user.setActivity(`m.help | In ${client.guilds.cache.size} Servers! and ${client.users.cache.size} Users!`, { type: 'LISTENING'})
 		})
 		client.manager.init(client.user.id);
