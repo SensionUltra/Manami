@@ -5,7 +5,7 @@ name: "prefix",
 description: "sets the servers prefix",
 cooldown: 120000,
 run: async(client, message, args) => {
-    if(!message.member.hasPermission("MANAGE_SERVER")) return embed.error('Missing Permissions', 'You need the \`\`MANAGE_SERVER\`\` Permission')
+    if(!message.member.hasPermission("MANAGE_GUILD")) return embed.error('Missing Permissions', 'You need the \`\`MANAGE_SERVER\`\` Permission', message)
     const guildId = message.guild.id
     const prefix = args.join(' ') || 'm.'
     const newPrefix = await guild.setPrefix(guildId, prefix)

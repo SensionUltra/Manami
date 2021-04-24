@@ -1,6 +1,6 @@
 const economy = require('@eco/economy')
 module.exports = {
-name: "remove",
+name: "remove-balance",
 aliases: ['removebal', 'removebalance'],
 description: "remove mone",
 owner: true,
