@@ -11,7 +11,7 @@ run: (client, message, args) => {
     const avembed = new MessageEmbed()
     .setAuthor(`${target.user.username}'s Avatar!`)
     .setDescription(`\`Links:\` **[png](${target.user.displayAvatarURL({format: "png", size: 1024})}) | [gif](${target.user.displayAvatarURL({format: "gif", size: 1024, dynamic: true})})**`)
-    .setImage(target.user.displayAvatarURL({format: "png", size: 1024}))
+    .setImage(target.user.displayAvatarURL({format: "png", dynamic: true}))
     .setTimestamp()
 
     message.channel.send(avembed)
