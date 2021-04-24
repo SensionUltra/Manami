@@ -23,6 +23,7 @@ module.exports = {
 		.addField("Server Region", "```" + guild.region + "```", true)
 		.addField("Guild ID", "```" + guild.id + "```", true)
 		.addField("Guild Owner ID", "```" + guild.ownerID + "```", true)
+		.addField("Guild Owner Name", "```" + client.users.cache.get(guild.ownerID).username + "```", true)
 		.addField("Guild Members", "```" + guild.memberCount + "```", true)
 		.addField("When Joined", "```" + moment(bot.joinedAt).format('llll') + "```", true)
 
