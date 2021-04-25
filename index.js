@@ -22,9 +22,13 @@ fs.readdirSync("./handlers").forEach((handler) => {
   require(`./handlers/${handler}`)(client);
 });
 
+if (process.env.USER != "root") {
+  console.log("Didn't upload stats to Top.gg because this is not Manami")
+} else {
 ap.on('posted', () => {
   console.log('Posted stats to Top.gg!')
 })
+}
 client.manager = new Manager({
   nodes: [
     {

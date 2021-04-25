@@ -71,7 +71,7 @@ module.exports = {
         )
         .addField(
           "Top.gg",
-          "https://top.gg/bot/817653964161548289",
+          "[Click Here](https://top.gg/bot/817653964161548289)",
           true
         )
         .setImage("https://cdn.discordapp.com/attachments/815599691654889492/828162155978293278/ManamiEz.gif")
