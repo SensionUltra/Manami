@@ -17,15 +17,16 @@ module.exports = {
 		  console.log(matches)
 			// If supplied variable was not a mention, matches will be null instead of an array.
 			if (!matches) return;
-		  
+			
 			// However, the first element in the matches array will be the entire mention, not just the ID,
 			// so use index 1.
 			const id = matches[1];
-		  
+			
 			return client.users.cache.get(id);
-		  }
-
-		  */
+		}
+		  
+		*/
+		 client.config = config
 		readyTable.addRow('Name:', client.user.username),
 			readyTable.addRow('Servers:', client.guilds.cache.size + ' Cached'),
 			readyTable.addRow('Users:', client.users.cache.size + ' Cached'),
@@ -41,7 +42,10 @@ module.exports = {
 			}
 		}
 
-if (client.user.id == 828753390216806410) config.prefix = 'd.'
+		if (client.user.id == 828753390216806410) {
+			client.config.prefix = 'd.'
+			process.env.MONGOSTRING = process.env.DEVMONGOSTRING
+		}
 		allPrefixs = await getAllPrefixes();
 		client.guilds.cache.forEach((guild) => {
 			allPrefixs.forEach((obj) => {
@@ -49,7 +53,7 @@ if (client.user.id == 828753390216806410) config.prefix = 'd.'
 					guild.prefix = obj.prefix;
 				}
 			});
-			if (!guild.prefix) guild.prefix = config.prefix;
+			if (!guild.prefix) guild.prefix = client.config.prefix;
 		});
 		client.modules = new Collection()
 		client.package = require('@root/package.json')
