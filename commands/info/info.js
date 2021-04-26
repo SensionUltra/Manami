@@ -62,7 +62,7 @@ module.exports = {
         .addField("Creation", `${moment.utc(client.user.createdAt).format('LLLL')}`, true)
         .addField("Library", "[Discord.js](https://discord.js.org/#/)")
 
-
+if (client.user.id == 817653964161548289) {
         fetch(`https://api.voidbots.net/bot/stats/817653964161548289`, {
     method: "POST",
     headers: { 
@@ -72,7 +72,7 @@ module.exports = {
     body: JSON.stringify({"server_count": client.guilds.cache.size, "shard_count": 0 })
   }).then(response => response.text())
 .then(console.log).catch(console.error);
-
+}
 
         message.reply(embed)
         message.channel.stopTyping()
