@@ -6,6 +6,8 @@ module.exports = {
     run: async(message, client) => {
         if(message.author.bot) return;
         if(!message.guild) return;
+        const mentionRegex = RegExp(`^<@!${client.user.id}>$`);
+        if (message.content.match(mentionRegex)) message.channel.send("Ping!\nMy prefix is " + message.guild.prefix);
         if(!message.content.startsWith(message.guild.prefix)) return;
 
 
