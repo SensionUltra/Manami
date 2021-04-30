@@ -10,11 +10,10 @@ run: async(client, message, args) => {
 
     const npm = args[0]
     if(!npm) return message.channel.send("Please specify a npm package") //If a package was not specified
-    const url = `https://api.npms.io/v2/search?q=' + ${args[0]}`
 
     let response
     try {
-        response = await fetch(url).then(res => res.json()) // Search the package
+        response = await fetch('https://api.npms.io/v2/search?q=' + args[0]).then(res => res.json()) // Search the package
     } catch (e) {
         return message.reply("An error has occured", e)
     }

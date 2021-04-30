@@ -13,7 +13,6 @@ const client = new Discord.Client({
 const Kitsu = require("kitsu.js");
 client.kitsu = new Kitsu();
 const { Manager } = require("erela.js");
-const ap = AutoPoster(process.env.TOPGGTOKEN, client)
 client.commands = new Discord.Collection();
 client.aliases = new Discord.Collection();
 client.categories = new Discord.Collection();
@@ -21,6 +20,12 @@ client.categories = new Discord.Collection();
 fs.readdirSync("./handlers").forEach((handler) => {
   require(`./handlers/${handler}`)(client);
 });
+if (process.env.USER == "root") {
+  const ap = AutoPoster(process.env.TOPGGTOKEN, client)
+  ap.on('posted', () => {
+    console.log('Posted stats to Top.gg!')
+  })
+}
 
 if (process.env.USER != "root") {
   console.log("Didn't upload stats to Top.gg because this is not Manami")
