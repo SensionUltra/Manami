@@ -87,6 +87,15 @@ if (client.user.id == 817653964161548289) {
         message.reply(embed2)
         message.channel.stopTyping()
         break;
+
+      case "lavalink":
+        message.channel.startTyping()
+        const embed3 = new MessageEmbed()
+        .setTitle("Lavalink Statistics")
+        .setDescription(`\`\`\`asciidoc\nID :: ${client.manager.options.nodes[0].id}\nStatus :: \`\`\``)
+
+        message.channel.stopTyping()
+        message.channel.send(embed3)
     }
 
     function formatBytes(a, b) { 

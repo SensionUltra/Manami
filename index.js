@@ -37,9 +37,10 @@ ap.on('posted', () => {
 client.manager = new Manager({
   nodes: [
     {
-      host: "manamibot.xyz",
-      port: 2293,
-      password: process.env.LAVAPASS,
+      id: "1",
+      host: "138.197.73.104",
+      port: 3439,
+      password: 'AwokensLavalinkServer'
     },
   ],
 
@@ -72,6 +73,7 @@ client.manager = new Manager({
       .setColor("RANDOM");
     client.channels.cache.get(player.textChannel).send(queueEndEmbed);
   
+    
 
     player.destroy();
   });

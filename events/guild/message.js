@@ -7,13 +7,17 @@ module.exports = {
         if(message.author.bot) return;
         if(!message.guild) return;
         const mentionRegex = RegExp(`^<@!${client.user.id}>$`);
-        if (message.content.match(mentionRegex)) message.channel.send("Ping!\nMy prefix is " + message.guild.prefix);
-        if(!message.content.startsWith(message.guild.prefix)) return;
+        const mentionRegexPrefix = RegExp(`^<@!${client.user.id}> `);
+        
+        const prefix  = message.content.match(mentionRegexPrefix) ?
+				message.content.match(mentionRegexPrefix)[0] : message.guild.prefix;
+        if (message.content.match(mentionRegex)) message.channel.send(`\`❗\` My Prefix is **${message.guild.prefix}**`);
+        if(!message.content.startsWith(prefix)) return;
 
 
            if (!message.member) message.member = await message.guild.fetchMember(message);
           
-          const args = message.content.slice(message.guild.prefix.length).trim().split(/ +/g);
+          const args = message.content.slice(prefix .length).trim().split(/ +/g);
           const cmd = args.shift().toLowerCase();
           if (cmd.length === 0) return;
           
