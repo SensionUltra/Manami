@@ -29,9 +29,19 @@ run: async(client, message, args) => {
     .addField("❯ Watchers", pkg.watchers_count ? pkg.watchers_count : 'None', true)
     .addField("❯ Forks", pkg.forks ? pkg.forks : 'None', true)
     .addField("❯ Language", pkg.language, true)
-    .addField("❯ Size", `${pkg.size / 1000}GB`, true)
+    .addField("❯ Size", `${formatBytes(pkg.size)}`, true)
 
     message.channel.send(embed)
 
 }
 }
+
+function formatBytes(a, b) { 
+  let c = 1024; // 1 GB = 1024 MB
+  d = b || 2;
+  e = ["B", "KB", "MB", "GB", "TB"];
+  f = Math.floor(Math.log(a) / Math.log(c));
+
+  return parseFloat((a / Math.pow(c, f)).toFixed(d)) + "" + e[f];
+}
+
