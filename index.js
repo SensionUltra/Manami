@@ -20,12 +20,7 @@ client.categories = new Discord.Collection();
 fs.readdirSync("./handlers").forEach((handler) => {
   require(`./handlers/${handler}`)(client);
 });
-if (process.env.USER == "root") {
-  const ap = AutoPoster(process.env.TOPGGTOKEN, client)
-  ap.on('posted', () => {
-    console.log('Posted stats to Top.gg!')
-  })
-}
+const ap = AutoPoster(process.env.TOPGGTOKEN, client)
 
 if (process.env.USER != "root") {
   console.log("Didn't upload stats to Top.gg because this is not Manami")
@@ -38,7 +33,7 @@ client.manager = new Manager({
   nodes: [
     {
       id: "1",
-      host: "138.197.73.104",
+      host: process.env.HOST,
       port: 3439,
       password: 'AwokensLavalinkServer'
     },
