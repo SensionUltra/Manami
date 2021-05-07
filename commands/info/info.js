@@ -17,10 +17,8 @@ module.exports = {
       let properString = amount == 1 ? string : strings;
       return properString;
     };
-
-    const player = client.manager.get(message.guild.id)
-    
-    const node = player ? player.node.stats : "No player"
+    let n = client.manager.nodes;
+    const node = n.map(node => node)[0]
 
     const days = Math.floor(client.uptime / 86400000);
     const hours = Math.floor(client.uptime / 3600000) % 24; // 1 Day = 24 Hours
@@ -96,7 +94,7 @@ if (client.user.id == 817653964161548289) {
         message.channel.startTyping()
         const embed3 = new MessageEmbed()
         .setTitle("Lavalink Statistics")
-        .setDescription(`\`\`\`asciidoc\nID :: ${client.manager.options.nodes[0].id}\nStatus :: ${player ? player.state : "DISCONNECTED"}\n\nCPU Load :: ${player ? (player.node.stats.cpu.lavalinkLoad * 100).toFixed(2) + "%" : "0.00%"}\nMem Usage :: ${player ? formatBytes(player.node.stats.memory.used) : "0.00MB"}\nUptime :: ${player ? prettyMS(player.node.stats.uptime, { verbose: true, secondsDecimalDigits: 0 }) : "0.00"}\nPlayers :: ${player ? `${player.node.stats.playingPlayers} of ${player.node.stats.players}` : "0 of 0"}\`\`\``)
+        .setDescription(`\`\`\`asciidoc\nID :: ${client.manager.options.nodes[0].id}\nStatus :: ${node.connected ? "Connected" : "Disconnected"}\n\nCPU Load :: ${(node.stats.cpu.lavalinkLoad * 100).toFixed(2) + "%"}\nMem Usage :: ${formatBytes(node.stats.memory.used)}\nUptime :: ${prettyMS(node.stats.uptime, { verbose: true, secondsDecimalDigits: 0 })}\nPlayers :: ${node.stats.playingPlayers} of ${node.stats.players} playing\`\`\``)
 
         message.channel.stopTyping()
         message.channel.send(embed3)
