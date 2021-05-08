@@ -24,14 +24,25 @@ run: async(client, message, args) => {
     .setTitle(pkg.name)
     .setURL(pkg.html_url)
     .setDescription(pkg.description)
-    .addField("❯ License", pkg.license ? pkg.license : 'No License', true)
+    .addField("❯ License", pkg.license ? pkg.license.name : 'No License', true)
     .addField("❯ Stars", pkg.stargazers_count ? pkg.stargazers_count : 'None', true)
     .addField("❯ Watchers", pkg.watchers_count ? pkg.watchers_count : 'None', true)
     .addField("❯ Forks", pkg.forks ? pkg.forks : 'None', true)
     .addField("❯ Language", pkg.language, true)
-    .addField("❯ Size", `${pkg.size / 1000}GB`, true)
+    .addField("❯ Size", `${formatBytes(pkg.size)}`, true)
+
 
     message.channel.send(embed)
 
 }
 }
+
+function formatBytes(a, b) { 
+  let c = 1024; // 1 GB = 1024 MB
+  d = b || 2;
+  e = ["B", "KB", "MB", "GB", "TB"];
+  f = Math.floor(Math.log(a) / Math.log(c));
+
+  return parseFloat((a / Math.pow(c, f)).toFixed(d)) + "" + e[f];
+}
+

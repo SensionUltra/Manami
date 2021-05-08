@@ -3,6 +3,7 @@ const os = require("os");
 const cpuStat = require("cpu-stat");
 const moment = require("moment");
 let path = os.platform() === "win32" ? "c:" : "/";
+const prettyMS = require('pretty-ms')
 const fetch = require('node-fetch');
 
 
@@ -16,7 +17,8 @@ module.exports = {
       let properString = amount == 1 ? string : strings;
       return properString;
     };
-
+    let n = client.manager.nodes;
+    const node = n.map(node => node)[0]
 
     const days = Math.floor(client.uptime / 86400000);
     const hours = Math.floor(client.uptime / 3600000) % 24; // 1 Day = 24 Hours
@@ -92,7 +94,7 @@ if (client.user.id == 817653964161548289) {
         message.channel.startTyping()
         const embed3 = new MessageEmbed()
         .setTitle("Lavalink Statistics")
-        .setDescription(`\`\`\`asciidoc\nID :: ${client.manager.options.nodes[0].id}\nStatus :: \`\`\``)
+        .setDescription(`\`\`\`asciidoc\nID :: ${client.manager.options.nodes[0].id}\nStatus :: ${node.connected ? "Connected" : "Disconnected"}\n\nCPU Load :: ${(node.stats.cpu.lavalinkLoad * 100).toFixed(2) + "%"}\nMem Usage :: ${formatBytes(node.stats.memory.used)}\nUptime :: ${prettyMS(node.stats.uptime, { verbose: true, secondsDecimalDigits: 0 })}\nPlayers :: ${node.stats.playingPlayers} of ${node.stats.players} playing\`\`\``)
 
         message.channel.stopTyping()
         message.channel.send(embed3)
