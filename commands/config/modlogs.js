@@ -3,11 +3,9 @@ module.exports = {
 	name: 'modlog',
 	description: 'disables/enables the modlogs',
 	run: async (client, message, args) => {
-		console.log('hello');
-		console.log('sup');
-		message.reply('sup');
+		let channelid = (message.mentions.channels.first() || message.channel.id)
 		let alreadyEnabled = (await modlogs.getChannelId(message.guild.id)) ? true : false;
-		const result = await modlogs.switchIt(message.guild.id, message.channel.id, alreadyEnabled);
+		const result = await modlogs.switchIt(message.guild.id, channelid, alreadyEnabled);
 		message.channel.send('done\n' + result);
 	},
 };
