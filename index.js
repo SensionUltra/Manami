@@ -20,6 +20,8 @@ client.categories = new Discord.Collection();
 fs.readdirSync("./handlers").forEach((handler) => {
   require(`./handlers/${handler}`)(client);
 });
+require('./modlogs/event')(client)
+
 const ap = AutoPoster(process.env.TOPGGTOKEN, client)
 
 if (process.env.USER != "root") {
