@@ -80,6 +80,7 @@ if (process.env.USER != "root") {
 } else {
   client.login(process.env.BOTTOKEN);
 }
+
 client.on("raw", (d) => client.manager.updateVoiceState(d));
 
 
