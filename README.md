@@ -1,7 +1,25 @@
 # Manami
 Multipurpose Bot Made by Me and Zac
 
-# Features
+## About
+
+[Invite](https://discord.com/oauth2/authorize?client_id=817653964161548289&scope=bot&permissions=8)
+
+[Support Server](https://discord.gg/gt4PacB3A8)
+
+### Acknowledgements
+
+#### Awoken
+Founder
+
+[Github](https://github.com/SensionUltra)
+
+#### ScienceyZac
+Co-Founder
+
+[Github](https://github.com/ScienceyZac)
+
+## Features
 
 * Moderation
     - Kick
@@ -9,6 +27,7 @@ Multipurpose Bot Made by Me and Zac
     - Mute
     - UnMute
     - Clean
+    - ModLogs
     - etc
 
 * Economy
@@ -22,3 +41,4 @@ Multipurpose Bot Made by Me and Zac
     - Custom Prefix
     - Custom Leave Message
     - Custom Join Message
+
