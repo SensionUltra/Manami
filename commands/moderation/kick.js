@@ -4,7 +4,7 @@ module.exports = {
     name: "kick",
     description: "kicks the pinged user",
     usage: "kick <user>",
-    run: (client, message, args) => {
+    run: async(client, message, args, getChannelId, member) => {
         const target = message.mentions.members.first(); 
         let reason = args.slice(1).join(" "); 
         
@@ -29,5 +29,19 @@ module.exports = {
         .addField(`reason`, `${reason}`)
         message.channel.send(kickedEmbed)
         target.kick(reason)
+        const channelId = await getChannelId(member.guild.id);
+		if (!channelId) return;
+
+        const kickedLog = new Discord.MessageEmbed()
+        .setTitle("Member Kicked")
+        .setColor("RED")
+        .addField("User", `${target.user}(${trage.user.tag})`, true)
+        .addField("Moderator", `${message.author}(${message.author.tag})`, true)
+        .addField("Reason", `**${reason}**`, true)
+        .setFooter(`ID: ${target.user.id}`)
+        .setTimestamp()
+
+        client.channels.cache.get(channelId).send(kickedLog)
+
     }
 }

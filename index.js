@@ -1,6 +1,7 @@
 require("module-alias/register");
 require('@auto/inlineReply')
 const AutoPoster = require('topgg-autoposter')
+const { format, sleep } = require('./modules/functions/functions')
 require("dotenv").config();
 const fs = require("fs");
 const Discord = require("discord.js");
@@ -16,6 +17,7 @@ const { Manager } = require("erela.js");
 client.commands = new Discord.Collection();
 client.aliases = new Discord.Collection();
 client.categories = new Discord.Collection();
+client.snipes = new Discord.Collection();
 
 fs.readdirSync("./handlers").forEach((handler) => {
   require(`./handlers/${handler}`)(client);
@@ -64,7 +66,8 @@ client.manager = new Manager({
 
     client.channels.cache.get(player.textChannel).send(nowPlayEmbed);
   })
-  .on("queueEnd", (player) => {
+  .on("queueEnd", async(player) => {
+    await sleep(60000);
     const queueEndEmbed = new Discord.MessageEmbed()
       .setTitle("`❌` Queue has ended")
       .setColor("RANDOM");
@@ -84,15 +87,3 @@ if (process.env.USER != "root") {
 client.on("raw", (d) => client.manager.updateVoiceState(d));
 
 
-
-function format(millis) {
-  try {
-    var h = Math.floor(millis / 3600000),
-      m = Math.floor(millis / 60000),
-      s = ((millis % 60000) / 1000).toFixed(0);
-    if (h < 1) return (m < 10 ? "0" : "") + m + ":" + (s < 10 ? "0" : "") + s + " | " + (Math.floor(millis / 1000)) + " Seconds";
-    else return (h < 10 ? "0" : "") + h + ":" + (m < 10 ? "0" : "") + m + ":" + (s < 10 ? "0" : "") + s + " | " + (Math.floor(millis / 1000)) + " Seconds";
-  } catch (e) {
-    console.log(String(e.stack).bgRed)
-  }
-}

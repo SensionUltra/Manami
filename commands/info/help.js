@@ -8,7 +8,9 @@ module.exports = {
   description: "Shows all available bot commands.",
   cooldown: 3000,
   run: async (client, message, args) => {
-
+    const cmd = client.categories.filter(cat => cat.name == 'music').forEach(category => {
+      category.cmds.map(cmd => cmd.name)
+      })
     const prefix = message.guild.prefix || defultPrefix
     const roleColor =
       message.guild.me.displayHexColor === "#000000"
@@ -96,8 +98,12 @@ module.exports = {
           .setTitle('Command Catagory:')
           .addFields(
             {name: `Catagory Name`, value: command.name},
-            {name: `Amount Of Commands`, value: command.cmdAmount},
           )
+          .addField(
+            "Commands:",
+            cmd
+          )
+          console.log(cmd)
           return message.channel.send(embed)
         }
 
