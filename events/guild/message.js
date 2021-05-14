@@ -26,6 +26,9 @@ module.exports = {
           // If none is found, try to find it by alias
           if (!command) command = client.commands.get(client.aliases.get(cmd))
           if (command?.subcommand && args != 0) command = client.commands.get(cmd + ' ' + args.splice(0, 1)) // if the cmd is the about.js cmd for a sub cmd and if there are args then it will execute the sub-cmd instead
+          if (!command) return
+          
+          
           if (command?.owner && client.config.ownerIds.includes(message.author.id) == false) {
             if (typeof(command.owner) == "string") {
               return message.channel.send(command.owner)
@@ -35,12 +38,24 @@ module.exports = {
           if (command) {
             if(command.cooldown) {
                 if(Cooldown.has(`${command.name}${message.author.id}`) && client.config.ownerIds.includes(message.author.id) == false) return message.channel.send(`Woah, way to quick there, you're on a \`${ms(Cooldown.get(`${command.name}${message.author.id}`) - Date.now(), {long : true})}\` cooldown.`)
+                const info = {
+                  command,
+                  message
+                }
+                client.events.commands.emit(command.name, info)
+                client.events.commands.emit('all', info)
                 command.run(client, message, args)
                 Cooldown.set(`${command.name}${message.author.id}`, Date.now() + command.cooldown)
                 setTimeout(() => {
                   Cooldown.delete(`${command.name}${message.author.id}`)
                 }, command.cooldown)
             } else {
+              const info = {
+                command,
+                message
+              }
+              client.events.commands.emit(command.name, info)
+              client.events.commands.emit('all', info)
               command.run(client, message, args)
             }
         }

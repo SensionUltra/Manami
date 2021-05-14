@@ -1,4 +1,5 @@
 require("module-alias/register");
+const EventEmitter = require('events').EventEmitter
 require('@auto/inlineReply')
 const AutoPoster = require('topgg-autoposter')
 const { format, sleep } = require('./modules/functions/functions')
@@ -17,7 +18,8 @@ const { Manager } = require("erela.js");
 client.commands = new Discord.Collection();
 client.aliases = new Discord.Collection();
 client.categories = new Discord.Collection();
-client.snipes = new Discord.Collection();
+client.events = {}
+client.events.commands = new EventEmitter()
 
 fs.readdirSync("./handlers").forEach((handler) => {
   require(`./handlers/${handler}`)(client);
