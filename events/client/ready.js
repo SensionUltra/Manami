@@ -2,7 +2,8 @@ const fs = require('fs')
 const { getAllPrefixes } = require('@settings/guild');
 const config = require('@root/config.json');
 const ascii = require('ascii-table');
-const { Collection } = require('discord.js');
+const Discord = require('discord.js')
+const { Collection, MessageEmbed } = require('discord.js');
 let readyTable = new ascii('Client');
 readyTable.setHeading('Info', 'status');
 module.exports = {
@@ -66,7 +67,90 @@ module.exports = {
 		client.supportServer = client.guilds.cache.get('826614093695811594')
 		client.supportServer.reportChannel = client.supportServer.channels.cache.get('827075339980111925')
 		client.user.setActivity(`m.help | In ${client.guilds.cache.size} Servers! and ${client.users.cache.size} Users!`, { type: 'LISTENING'})
+		});
+		client.api.applications(client.user.id).commands.post({
+			data: {
+				name: 'hello',
+				description: 'responds with hello world!'
+			}
+		});
+		client.api.applications(client.user.id).commands.post({
+			data: {
+				name: 'echo',
+				description: 'repeats your text as embed',
+
+				options: [
+					{
+						name: 'content',
+						description: 'the content of the embed',
+						type: 3,
+						required: true,
+					}
+				]
+			}
+		});
+		client.api.applications(client.user.id).guilds('789800070895763476').commands.post({
+			data: {
+				name: 'ping',
+				description: 'get the bots ping!',
+				
+			}
 		})
+
+		client.ws.on('INTERACTION_CREATE', async interaction => {
+			const command = interaction.data.name.toLowerCase();
+			const args = interaction.data.options;
+			// [ {name: "content", value: "userinput"} ]
+
+			if(command == 'hello') {
+				client.api.interactions(interaction.id, interaction.token).callback.post({
+					data: {
+						type: 4,
+						data: {
+							content: "Hello World!"
+						}
+					}
+				})
+			}
+
+			if(command == "echo") {
+				const description = args.find(arg => arg.name.toLowerCase() == "content").value;
+				const embed = new MessageEmbed()
+				.setTitle("Echo!")
+				.setDescription(description)
+				.setAuthor(interaction.member.user.username);
+
+				client.api.interactions(interaction.id, interaction.token).callback.post({
+					data: {
+						type: 4,
+						data: await createAPIMessage(interaction, embed)
+					}
+				})
+
+			if(command == "ping") {
+				client.api.interactions(interaction.id, interaction.token).callback.post({
+					data: {
+						type: 4,
+						data: {
+							content: `pong`
+						}
+					}
+				})
+			}
+
+				
+			}
+		})
+
+		async function createAPIMessage(interation, content) {
+			const apiMessage = await Discord.APIMessage.create(client.channels.resolve(interation.channel_id), content)
+			.resolveData()
+			.resolveFiles();
+
+			return { ...apiMessage.data, files: apiMessage.files };
+		}
+
+		
 		client.manager.init(client.user.id);
 	},
 	
