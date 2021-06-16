@@ -5,6 +5,8 @@ const ascii = require('ascii-table');
 const Discord = require('discord.js')
 const { Collection, MessageEmbed } = require('discord.js');
 let readyTable = new ascii('Client');
+const AutoPoster = require('topgg-autoposter')
+
 readyTable.setHeading('Info', 'status');
 module.exports = {
 	name: 'ready',
@@ -27,6 +29,10 @@ module.exports = {
 		}
 		  
 		*/
+        const ap = AutoPoster(process.env.TOPGGTOKEN, client)
+        ap.on('posted', () => {
+          console.log('Posted stats to Top.gg!')
+        })
 		 client.config = config
 		readyTable.addRow('Name:', client.user.username),
 			readyTable.addRow('Servers:', client.guilds.cache.size + ' Cached'),
