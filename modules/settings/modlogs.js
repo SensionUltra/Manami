@@ -5,6 +5,7 @@ module.exports.getChannelId = async (guildId) => {
 	return await mongo().then(async (mongoose) => {
 		try {
 			const result = await guildSchema.findOne({ guildId });
+            if(!result)return false;
 			return result.modLogs ? result.modLogs.channelId : false;
 		} finally {
 			mongoose.connection.close();
