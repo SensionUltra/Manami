@@ -6,6 +6,7 @@ module.exports = {
         const channelId = await getChannelId(oldMessage.guild.id);
         if (!channelId) return;
         if(oldMessage.author.bot) return;
+        if (oldMessage.content == newMessage.content) return;
         const embed = new MessageEmbed()
         .setTitle("`📝` Message Edited")
         .setColor("GREEN")
