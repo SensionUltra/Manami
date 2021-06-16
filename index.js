@@ -1,7 +1,6 @@
 require("module-alias/register");
 const EventEmitter = require('events').EventEmitter
 require('@auto/inlineReply')
-const AutoPoster = require('topgg-autoposter')
 const { format, sleep } = require('./modules/functions/functions')
 require("dotenv").config();
 const fs = require("fs");
@@ -26,15 +25,8 @@ fs.readdirSync("./handlers").forEach((handler) => {
 });
 require('./modlogs/event')(client)
 
-const ap = AutoPoster(process.env.TOPGGTOKEN, client)
 
-if (process.env.USER != "root") {
-  console.log("Didn't upload stats to Top.gg because this is not Manami")
-} else {
-ap.on('posted', () => {
-  console.log('Posted stats to Top.gg!')
-})
-}
+
 client.manager = new Manager({
   nodes: [
     {
@@ -79,12 +71,12 @@ client.manager = new Manager({
 
     player.destroy();
   });
-
-if (process.env.USER != "root") {
-  client.login(process.env.DEVBOTTOKEN);
-} else {
+// uncomment this
+// if (process.env.USER != "root") {
+//   client.login(process.env.DEVBOTTOKEN);
+// } else {
   client.login(process.env.BOTTOKEN);
-}
+// }
 
 client.on("raw", (d) => client.manager.updateVoiceState(d));
 
