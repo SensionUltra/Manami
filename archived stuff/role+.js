@@ -3,6 +3,7 @@ name: "role+",
 aliases: ["giverole"],
 description: "give a role to a member",
 run: (client, message, args) => {
+    console.log('cmd run by'+message.author.username)
     if(!message.member.hasPermission("MANAGE_ROLES")) {
         message.reply("You are missing the \`MANAGE_ROLES\` Permission!")
         return
@@ -14,12 +15,12 @@ run: (client, message, args) => {
 
     args.shift()
 
-    const roleName = args.join(' ')
+    let roleName = args.join(' ')
     const { guild } = message
-
-    const role = guild.roles.cache.find((role) => {
-        return role.name === roleName
-    })
+roleName = (roleName.match(/^<@!?(\d+)>$/))[1]
+    const role = guild.roles.cache.get(roleName)
+    console.log(roleName)
+    console.log(role)
     if (!role) {
         message.reply(`There is role ${roleName} is not valid`)
         return
