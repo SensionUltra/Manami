@@ -1,5 +1,4 @@
 const { MessageEmbed } = require('discord.js');
-const { post } =  require('node-superfetch')
 const SourceBin = require('sourcebin-wrapper')
 
 module.exports = {
@@ -92,7 +91,7 @@ run: async(client, message, args) => {
 };
 
 function clean(string) {
-    if (typeof text === "string") {
+    if (typeof string === "string") {
         return string.replace(/`/g, "`" + String.fromCharCode(8203))
         .replace(/@/g, "@" + String.fromCharCode(8203))
     } else {
