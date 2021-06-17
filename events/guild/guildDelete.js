@@ -16,7 +16,6 @@ module.exports = {
 		.addField("Guild Members", "```" + guild.memberCount + "```", true)
 
 		
-
-		onLeaveChannel.send(onLeaveEmbed)
+    if (onLeaveChannel)onLeaveChannel.send(onLeaveEmbed)
 
     }}
