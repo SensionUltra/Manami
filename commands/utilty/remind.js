@@ -2,7 +2,6 @@ const { MessageEmbed } = require('discord.js')
 const ms = require('ms')
 module.exports = {
 name: "remind",
-aliases: [""],
 description: "set a reminder!",
 run: (client, message, args) => {
     let matches = args.join(' ').match(/"(.+)" ?, ?"(\d+)" ?, ?"(s|m|h|d|y)"/i)
