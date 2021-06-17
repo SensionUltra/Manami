@@ -6,13 +6,8 @@ module.exports = {
   name: "contributors",
   description: "List the contributors for Manami",
   run: async (client, message, args) => {
-    var contributors = await (
-      await fetch("https://api.github.com/repos/SensionUltra/Manami/contributors", {
-        method: "GET",
-        headers: {
-          Authorization: `token ${config.apiToken}`,
-        },
-      })
+    const contributors = await (
+      await fetch("https://api.github.com/repos/SensionUltra/Manami/contributors")
     ).json();
 
     contributors = contributors.map(
