@@ -35,29 +35,34 @@ module.exports = {
             } else return
           }
           // If a command is finally found, run the command
-          if (command) {
-            if(command.cooldown) {
-                if(Cooldown.has(`${command.name}${message.author.id}`) && client.config.ownerIds.includes(message.author.id) == false) return message.channel.send(`Woah, way to quick there, you're on a \`${ms(Cooldown.get(`${command.name}${message.author.id}`) - Date.now(), {long : true})}\` cooldown.`)
+          try {
+
+              if (command) {
+                  if(command.cooldown) {
+                      if(Cooldown.has(`${command.name}${message.author.id}`) && client.config.ownerIds.includes(message.author.id) == false) return message.channel.send(`Woah, way to quick there, you're on a \`${ms(Cooldown.get(`${command.name}${message.author.id}`) - Date.now(), {long : true})}\` cooldown.`)
                 const info = {
-                  command,
-                  message
+                    command,
+                    message
                 }
                 client.events.commands.emit(command.name, info)
                 client.events.commands.emit('all', info)
                 command.run(client, message, args)
                 Cooldown.set(`${command.name}${message.author.id}`, Date.now() + command.cooldown)
                 setTimeout(() => {
-                  Cooldown.delete(`${command.name}${message.author.id}`)
+                    Cooldown.delete(`${command.name}${message.author.id}`)
                 }, command.cooldown)
             } else {
-              const info = {
-                command,
-                message
-              }
-              client.events.commands.emit(command.name, info)
-              client.events.commands.emit('all', info)
-              command.run(client, message, args)
+                const info = {
+                    command,
+                    message
+                }
+                client.events.commands.emit(command.name, info)
+                client.events.commands.emit('all', info)
+                command.run(client, message, args)
             }
         }
+    } catch (e) {
+        console.error(e)// handle the error if any
+    }
     }
 }
