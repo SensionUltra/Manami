@@ -13,7 +13,12 @@ module.exports = (client) => {
 				continue;
 			} else if (event.name) {
 				eventTable.addRow(file, `✅`);
-				client.on(event.name, (...args) => event.run(...args, client));
+                try {
+
+                    client.on(event.name, (...args) => event.run(...args, client));
+                } catch (e) {
+                    console.error(e)
+                }
 			}
 		}
 	})
