@@ -4,9 +4,10 @@ const config = require("../../config.json");
 
 module.exports = {
   name: "contributors",
+  aliases: ['contribs'],
   description: "List the contributors for Manami",
   run: async (client, message, args) => {
-    const contributors = await (
+    let contributors = await (
       await fetch("https://api.github.com/repos/SensionUltra/Manami/contributors")
     ).json();
 
