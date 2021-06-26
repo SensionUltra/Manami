@@ -71,12 +71,11 @@ client.manager = new Manager({
 
     player.destroy();
   });
-// uncomment this
-// if (process.env.USER != "root") {
-//   client.login(process.env.DEVBOTTOKEN);
-// } else {
+if (process.env.USER != "root") {
+  client.login(process.env.DEVBOTTOKEN);
+} else {
   client.login(process.env.BOTTOKEN);
-// }
+}
 
 client.on("raw", (d) => client.manager.updateVoiceState(d));
 
